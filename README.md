@@ -22,7 +22,7 @@ A especificação funcional do projeto, incluindo escopo, perfis de usuário,
 requisitos funcionais e não funcionais, regras de negócio e fluxos, está
 disponível em:
 
-- [`docs/especificacao_funcional.md`](docs/especificacao_funcional.md)
+- [`docs/especificacao-funcional.md`](docs/especificacao-funcional.md)
 
 A documentação será atualizada ao longo do desenvolvimento para manter
 rastreabilidade entre requisitos, implementação e testes.
