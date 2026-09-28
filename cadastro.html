@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nova demanda | Fullmetal</title>
+  </head>
+  <body>
+    <a href="#conteudo">Pular para o conteúdo</a>
+
+    <header>
+      <p>Fullmetal</p>
+    </header>
+
+    <main id="conteudo">
+      <h1>Nova demanda</h1>
+      <p>Preencha os campos obrigatórios para registrar sua solicitação.</p>
+
+      <form id="formulario-demanda">
+        <fieldset>
+          <legend>Dados da demanda</legend>
+
+          <div>
+            <label for="titulo">Título da demanda</label>
+            <input
+              id="titulo"
+              name="titulo"
+              type="text"
+              minlength="5"
+              maxlength="100"
+              required
+              aria-describedby="ajuda-titulo"
+            >
+            <p id="ajuda-titulo">Entre 5 e 100 caracteres.</p>
+          </div>
+
+          <div>
+            <label for="descricao">Descrição</label>
+            <textarea
+              id="descricao"
+              name="descricao"
+              rows="6"
+              maxlength="500"
+              required
+              aria-describedby="ajuda-descricao"
+            ></textarea>
+            <p id="ajuda-descricao">Até 500 caracteres.</p>
+          </div>
+
+          <div>
+            <label for="categoria">Categoria</label>
+            <select id="categoria" name="categoria" required disabled aria-describedby="ajuda-categoria">
+              <option value="" selected>Selecione uma categoria</option>
+              <!-- Adicionar somente as categorias aprovadas para o projeto. -->
+            </select>
+            <p id="ajuda-categoria">As categorias ainda precisam ser definidas.</p>
+          </div>
+
+          <div>
+            <label for="localizacao">Localização</label>
+            <input id="localizacao" name="localizacao" type="text" required aria-describedby="ajuda-localizacao">
+            <p id="ajuda-localizacao">Informe o local ou sala da demanda.</p>
+          </div>
+        </fieldset>
+
+        <!-- As mensagens serão exibidas após a validação e o salvamento serem implementados. -->
+        <p id="mensagem-erro" role="alert" hidden></p>
+        <p id="mensagem-sucesso" role="status" aria-live="polite" hidden></p>
+
+        <p>O envio ficará disponível quando as categorias e o salvamento forem implementados.</p>
+        <button type="submit" disabled>Salvar demanda</button>
+        <!-- Ligar esta ação à listagem quando a tela do outro membro estiver pronta. -->
+        <button type="button" disabled>Cancelar e voltar</button>
+      </form>
+    </main>
+  </body>
+</html>
