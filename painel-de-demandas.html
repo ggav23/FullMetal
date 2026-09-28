@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Demandas</title>
+</head>
+<body>
+
+    <!-- cabeçalho-->
+    <header>
+        <h1>Gerenciamento de Demandas</h1>
+        <!-- botão que leva para a tela de cadastro-->
+        <!-- a tela de cadastro precisa ter o mesmo nome do link-->
+        <a href="/nova-demanda.html" role="button">Nova Demanda</a>
+    </header>
+
+    <main>
+
+        <!-- busca e filtros -->
+        <search>
+            <form action="#" method="GET">
+                <fieldset>
+                    <legend>Buscar e Filtrar Demandas</legend>
+                    
+                    <!-- busca -->
+                    <label for="termo-busca">Pesquisar:</label>
+                    <input type="search" id="termo-busca" name="q" placeholder="Digite o título ou ID...">
+
+                    <!-- filtros -->
+                    <label for="filtro-departamento">Departamento:</label>
+                    <select id="filtro-departamento" name="departamento">
+                        <option value="">Todos</option>
+                        <option value="ti">T.I.</option>
+                        <option value="manutencao">Manutenção</option>
+                        <option value="rh">Recursos Humanos</option>
+                    </select>
+
+                    <!-- status -->
+                    <label for="Status">Status:</label>
+                    <select id="Status" name="status">
+                        <option value="">Todos</option>
+                        <option value="pendente">Pendentes</option>
+                        <option value="andamento">Em Andamento</option>
+                        <option value="concluido">Concluído</option>
+                    </select>
+
+                    <button type="submit">Aplicar</button>
+                </fieldset>
+            </form>
+        </search>
+
+        <!-- listagem -->
+        <section aria-labelledby="titulo-listagem">
+            <h2 id="titulo-listagem">Demandas Encontradas</h2>
+            <ul id="lista-demandas">
+            </ul>
+        </section>
+
+    </main>
+
+</body>
+</html>
