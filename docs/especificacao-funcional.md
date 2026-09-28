@@ -42,15 +42,14 @@ Descrever como o processo funciona atualmente e qual problema deverá ser resolv
 > Implementação de arquitetura de Back-end.
 > Apoio popular de sugestões.
 
-# 5. Perfis de Usuário (Incompleta)
 
 # 5. Perfis de Usuário
 
 | Perfil | Descrição | Principais permissões |
 |---|---|---|
-| Solicitante | Usuário que registra uma demanda e acompanha seu atendimento. | Cadastrar novas demandas, visualizar listagem pública, consultar detalhes de solicitações e acompanhar o status.|
+| Solicitante | Usuário que registra uma demanda e acompanha seu atendimento. | Cadastrar novas demandas, visualizar suas próprias demandas, consultar detalhes de solicitações e acompanhar o status.|
 | Triagem | Usuário responsável pela análise inicial das demandas recebidas e pelo encaminhamento ao setor adequado. | Visualizar demandas pendentes, validar informações recebidas e encaminhar para o setor ou alterar status. |
-| Responsável | Usuário do setor responsável pelo tratamento das demandas encaminhadas ao departamento. | Consultar demandas atribuídas ao seu setor, atualizar o andamento e finalizar o atendimento da demanda. |                                                |                                                     |
+| Responsável | Usuário do setor responsável pelo tratamento das demandas encaminhadas ao departamento. | Consultar demandas atribuídas a sua unidade, atualizar o andamento e finalizar o atendimento da demanda. |                                                |                                                     |
  
 
 ---
@@ -132,7 +131,7 @@ Exibir as demandas às quais o usuário possui acesso, permitindo consulta, busc
 |---|---|
 | Solicitante | Apenas demandas criadas pelo próprio usuário |
 | Triagem | Todas as demandas cadastradas |
-| Área Responsável | Apenas demandas encaminhadas para sua área |
+| Área Responsável | Apenas demandas encaminhadas para sua unidade |
 
 ### Componentes
 
@@ -147,7 +146,7 @@ Exibir as demandas às quais o usuário possui acesso, permitindo consulta, busc
 
 ### Ações por perfil
 
-| Ação | Solicitante | Triagem | Área Responsável |
+| Ação | Solicitante | Triagem | Unidade |
 |---|---:|---:|---:|
 | Nova Demanda | Sim | Não | Não |
 | Ver Detalhes | Sim | Sim | Sim |
@@ -157,7 +156,7 @@ Exibir as demandas às quais o usuário possui acesso, permitindo consulta, busc
 
 ### Objetivo da tela
 
-> Coletar os dados da solicitação.
+Coletar os dados da solicitação.
 
 ### Componentes
 
@@ -171,4 +170,33 @@ Exibir as demandas às quais o usuário possui acesso, permitindo consulta, busc
 |---|---|
 | Salvar Demanda | Valida os campos, salva os dados no JSON simulado e exibe mensagem de sucesso |
 | Cancelar / Voltar | Abandona o formulário e retorna para a listagem de demandas |
+
+## Tela 03 — Detalhes da Demanda
+
+### Objetivo
+
+Exibir as informações completas de uma demanda selecionada.
+
+### Componentes
+
+- Identificador da demanda
+- Título
+- Solicitante
+- Categoria
+- Localização
+- Descrição
+- Status
+- Unidade responsável
+- Data de criação
+- Histórico da demanda
+
+### Ações por perfil
+
+| Ação | Solicitante | Triagem | Responsável |
+|---|---:|---:|---:|
+| Voltar para Listagem | Sim | Sim | Sim |
+| Cancelar Demanda | Sim | Sim | Não |
+| Encaminhar Demanda | Não | Sim | Não |
+| Alterar Status | Não | Sim | Sim |
+| Concluir Demanda | Não | Não | Sim |
 ---
