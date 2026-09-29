@@ -1,0 +1,250 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f3ec;
+    color: #333;
+}
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #2a62c4;
+    color: white;
+    padding: 8px;
+    z-index: 100;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+.topbar {
+    background-color: #2b3972;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+}
+
+.brand-cluster {
+    display: flex;
+    align-items: center;
+}
+
+.brand {
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.brand-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-tag {
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-contrast-toggle {
+    background: transparent;
+    text-decoration: none;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-contrast-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.profile-container {
+    font-size: 0.9rem;
+}
+
+.profile-indicator {
+    background: transparent;
+    text-decoration: none;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Layout Principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 24px;
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    color: #111;
+}
+
+.container > p {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+}
+
+/* Formulário */
+#formulario-demanda {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.form-fieldset {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-fieldset legend {
+    display: none;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: bold;
+}
+
+.form-control {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 100%;
+}
+
+.form-control:focus {
+    border-color: #2a62c4;
+}
+
+.form-control:disabled {
+    background-color: #f9f9f9;
+    color: #999;
+    cursor: not-allowed;
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+.field-helper {
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 2px;
+}
+
+/* Mensagens de Feedback */
+.error-summary {
+    color: #d93025;
+    background-color: #fce8e6;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.success-summary {
+    color: #188038;
+    background-color: #e6f4ea;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+/* Botões */
+.action-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    align-items: center;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    border: none;
+    transition: background 0.3s, opacity 0.3s;
+    text-align: center;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: #2a62c4;
+    color: white;
+}
+
+.btn-primary:not(:disabled):hover {
+    background-color: #1c4896;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #555;
+    border: 1px solid #ccc;
+}
+
+.btn-secondary:hover {
+    background-color: #eee;
+    color: #222;
+}
