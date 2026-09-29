@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalhes da demanda | Fullmetal</title>
+  </head>
+
+  <body>
+    <a href="#conteudo">Pular para o conteúdo</a>
+
+    <!-- Cabeçalho e navegação compartilhados serão integrados posteriormente. -->
+
+    <main id="conteudo">
+
+      <article aria-labelledby="titulo-demanda">
+
+        <!-- Identificação da demanda -->
+        <header>
+          <div>
+            <span>Nº da demanda</span>
+            <span id="demanda-id">000</span>
+
+            <button type="button" id="copiar-id">
+              Copiar
+            </button>
+          </div>
+
+          <p>
+            <span>Status atual:</span>
+            <strong id="demanda-status">Pendente</strong>
+          </p>
+
+          <h1 id="titulo-demanda">Título da demanda</h1>
+        </header>
+
+        <!-- Informações principais -->
+        <section aria-labelledby="titulo-informacoes">
+          <h2 id="titulo-informacoes">Informações gerais</h2>
+
+          <dl>
+            <div>
+              <dt>Categoria</dt>
+              <dd id="demanda-categoria">Categoria da demanda</dd>
+            </div>
+
+            <div>
+              <dt>Localização</dt>
+              <dd id="demanda-localizacao">Localização informada</dd>
+            </div>
+
+            <div>
+              <dt>Solicitante</dt>
+              <dd id="demanda-solicitante">Nome do solicitante</dd>
+            </div>
+
+            <div>
+              <dt>Unidade responsável</dt>
+              <dd id="demanda-unidade">A definir pela triagem</dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- Histórico -->
+        <section aria-labelledby="titulo-historico">
+          <h2 id="titulo-historico">Histórico de andamento</h2>
+
+          <ol id="demanda-historico">
+            <li>
+              <p>Demanda cadastrada pelo solicitante</p>
+              <p>
+                <time id="demanda-data-criacao" datetime="">
+                  Data e hora
+                </time>
+                -
+                <span>Solicitante</span>
+              </p>
+            </li>
+          </ol>
+        </section>
+
+        <!-- Descrição -->
+        <section aria-labelledby="titulo-descricao">
+          <h2 id="titulo-descricao">Descrição do problema</h2>
+
+          <p id="demanda-descricao">
+            Descrição informada pelo solicitante.
+          </p>
+        </section>
+
+        <!-- Área de ações -->
+        <section aria-labelledby="titulo-acoes">
+          <h2 id="titulo-acoes">Decisão de triagem e encaminhamento</h2>
+
+          <form id="form-encaminhamento">
+            <div>
+              <label for="unidade-destino">
+                Unidade de destino
+              </label>
+
+              <select
+                id="unidade-destino"
+                name="unidade-destino"
+                required
+                disabled
+              >
+                <option value="" selected>
+                  Selecione a unidade
+                </option>
+
+                <!-- As unidades serão definidas posteriormente. -->
+              </select>
+            </div>
+
+            <button type="submit" disabled>
+              Encaminhar demanda
+            </button>
+
+            <button type="button" disabled>
+              Cancelar
+            </button>
+          </form>
+        </section>
+
+      </article>
+
+    </main>
+  </body>
+</html>
