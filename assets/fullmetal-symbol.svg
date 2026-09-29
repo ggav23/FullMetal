@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 120 120" style="color: #ffffff; --color-accent: #6ba4e9;">
+  <defs>
+    <polygon id="fm-main-shape" points="60,12 68,46.14 52,46.14" />
+    <polygon id="fm-accent-shape" points="60,22 64,36 56,36" />
+    <g id="fm-cluster">
+      <use href="#fm-main-shape" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round" />
+      <use href="#fm-accent-shape" fill="var(--color-accent, #6ba4e9)" stroke="var(--color-accent, #6ba4e9)" stroke-width="2" stroke-linejoin="round" transform="rotate(60 60 60)" />
+    </g>
+  </defs>
+  <use href="#fm-cluster" />
+  <use href="#fm-cluster" transform="rotate(120 60 60)" />
+  <use href="#fm-cluster" transform="rotate(240 60 60)" />
+</svg>
