@@ -4,25 +4,51 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nova demanda | Fullmetal</title>
+    <link rel="stylesheet" href="css/global.css">
+    <script src="js/header.js" defer></script>
   </head>
   <body>
-    <a href="#conteudo">Pular para o conteúdo</a>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
 
-    <header>
-      <p>Fullmetal</p>
+    <header class="topbar">
+      <nav class="brand-cluster" aria-label="Navegação principal">
+        <a class="brand" href="painel-de-demandas.html">
+          <span class="brand-logo-container">
+            <img src="assets/fullmetal-symbol.svg" width="26" height="26" alt="">
+          </span>
+          <span class="brand-name">FULLMETAL</span>
+          <span class="brand-tag">UnDF</span>
+        </a>
+      </nav>
+
+      <div class="topbar-actions">
+        <button class="btn-contrast-toggle" type="button" data-contrast-toggle aria-pressed="false" aria-label="Ativar alto contraste" hidden>
+          <span class="contrast-icon" aria-hidden="true">◐</span>
+          <span class="contrast-label">Contraste</span>
+        </button>
+
+        <div class="profile-container">
+          <!-- O perfil vem da identificação do usuário; não altero permissões pelo navegador. -->
+          <p class="profile-indicator">
+            <span class="profile-label">Perfil:</span>
+            <strong class="profile-value" id="perfil-atual">A definir</strong>
+          </p>
+        </div>
+      </div>
     </header>
 
-    <main id="conteudo">
+    <main id="conteudo" class="container" tabindex="-1">
       <h1>Nova demanda</h1>
       <p>Preencha os campos obrigatórios para registrar sua solicitação.</p>
 
       <form id="formulario-demanda">
-        <fieldset>
+        <fieldset class="form-fieldset">
           <legend>Dados da demanda</legend>
 
-          <div>
-            <label for="titulo">Título da demanda</label>
+          <div class="form-group">
+            <label class="form-label" for="titulo">Título da demanda</label>
             <input
+              class="form-control"
               id="titulo"
               name="titulo"
               type="text"
@@ -31,12 +57,13 @@
               required
               aria-describedby="ajuda-titulo"
             >
-            <p id="ajuda-titulo">Entre 5 e 100 caracteres.</p>
+            <p id="ajuda-titulo" class="field-helper">Entre 5 e 100 caracteres.</p>
           </div>
 
-          <div>
-            <label for="descricao">Descrição</label>
+          <div class="form-group">
+            <label class="form-label" for="descricao">Descrição</label>
             <textarea
+              class="form-control"
               id="descricao"
               name="descricao"
               rows="6"
@@ -44,32 +71,34 @@
               required
               aria-describedby="ajuda-descricao"
             ></textarea>
-            <p id="ajuda-descricao">Até 500 caracteres.</p>
+            <p id="ajuda-descricao" class="field-helper">Até 500 caracteres.</p>
           </div>
 
-          <div>
-            <label for="categoria">Categoria</label>
-            <select id="categoria" name="categoria" required disabled aria-describedby="ajuda-categoria">
+          <div class="form-group">
+            <label class="form-label" for="categoria">Categoria</label>
+            <select class="form-control" id="categoria" name="categoria" required disabled aria-describedby="ajuda-categoria">
               <option value="" selected>Selecione uma categoria</option>
               <!-- Adicionar somente as categorias aprovadas para o projeto. -->
             </select>
-            <p id="ajuda-categoria">As categorias ainda precisam ser definidas.</p>
+            <p id="ajuda-categoria" class="field-helper">As categorias ainda precisam ser definidas.</p>
           </div>
 
-          <div>
-            <label for="localizacao">Localização</label>
-            <input id="localizacao" name="localizacao" type="text" required aria-describedby="ajuda-localizacao">
-            <p id="ajuda-localizacao">Informe o local ou sala da demanda.</p>
+          <div class="form-group">
+            <label class="form-label" for="localizacao">Localização</label>
+            <input class="form-control" id="localizacao" name="localizacao" type="text" required aria-describedby="ajuda-localizacao">
+            <p id="ajuda-localizacao" class="field-helper">Informe o local ou sala da demanda.</p>
           </div>
         </fieldset>
 
         <!-- As mensagens serão exibidas após a validação e o salvamento serem implementados. -->
-        <p id="mensagem-erro" role="alert" hidden></p>
-        <p id="mensagem-sucesso" role="status" aria-live="polite" hidden></p>
+        <p id="mensagem-erro" class="error-summary" role="alert" hidden></p>
+        <p id="mensagem-sucesso" class="success-summary" role="status" aria-live="polite" hidden></p>
 
         <p>O envio ficará disponível quando as categorias e o salvamento forem implementados.</p>
-        <button type="submit" disabled>Salvar demanda</button>
-        <a href="painel-de-demandas.html">Cancelar e voltar</a>
+        <div class="action-group">
+          <button class="btn btn-primary" type="submit" disabled>Salvar demanda</button>
+          <a class="btn btn-secondary" href="painel-de-demandas.html">Cancelar e voltar</a>
+        </div>
       </form>
     </main>
   </body>
