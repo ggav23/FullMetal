@@ -659,36 +659,72 @@ dialog::backdrop {
   font-size: 0.82rem;
 }
 
-/* A classe é ativada pelo comportamento do botão de contraste, não apenas pelo CSS. */
+/* O alto contraste usa superfícies escuras em camadas e reserva a cor mais viva para o foco. */
 body.high-contrast {
-  --bg: #000000;
-  --surface: #121212;
-  --surface-subtle: #1e1e1e;
-  --fg: #ffffff;
-  --muted: #d1d5db;
-  --border: #ffff00;
-  --border-hover: #ffffff;
-  --control-border: #ffff00;
-  --accent: #ffff00;
-  --accent-hover: #e6e600;
-  --accent-light: #2a2a00;
-  --accent-contrast: #000000;
-  --header-bg: #000000;
-  --header-fg: #ffff00;
-  --header-muted: #ffffff;
-  --focus-on-dark: #ffffff;
-  --danger: #ff8a8a;
-  --danger-hover: #ffb4b4;
-  --danger-bg: #2a0000;
-  --success: #4ade80;
-  --success-hover: #86efac;
-  --success-bg: #052e16;
-  --success-contrast: #000000;
+  color-scheme: dark;
+  --bg: #0b1424;
+  --surface: #142137;
+  --surface-subtle: #1e2d46;
+  --fg: #f6f8fc;
+  --muted: #c7d3e3;
+  --border: #657d9e;
+  --border-hover: #a9bdd7;
+  --control-border: #99aec9;
+  --accent: #a9d0ff;
+  --accent-hover: #c4e0ff;
+  --accent-light: #213e60;
+  --accent-contrast: #0b1930;
+  --header-bg: #0d1930;
+  --header-fg: #f6f8fc;
+  --header-muted: #c7d3e3;
+  --focus-on-dark: #ffd166;
+  --danger: #ffb4b4;
+  --danger-hover: #ffd0d0;
+  --danger-bg: #391e2a;
+  --danger-border: #ff8e9f;
+  --success: #86efac;
+  --success-hover: #aaf4c6;
+  --success-bg: #103329;
+  --success-contrast: #0b1930;
+
+  /* Os badges também precisam mudar de paleta para não parecerem do tema claro. */
+  --status-pendente-fg: #ffd58a;
+  --status-pendente-bg: #332713;
+  --status-pendente-border: #e8ae54;
+  --status-atendimento-fg: #a9d0ff;
+  --status-atendimento-bg: #172f4e;
+  --status-atendimento-border: #7db9f3;
+  --status-concluida-fg: #86efac;
+  --status-concluida-bg: #103329;
+  --status-concluida-border: #57d78d;
+  --status-cancelada-fg: #d5dce8;
+  --status-cancelada-bg: #273141;
+  --status-cancelada-border: #9eafc6;
 }
 
 .high-contrast .btn-contrast-toggle,
 .high-contrast .profile-indicator {
-  border-color: var(--header-fg);
+  border-color: #738eaf;
+  background-color: #1e3453;
+}
+
+.high-contrast .btn-contrast-toggle:hover,
+.high-contrast .btn-contrast-toggle[aria-pressed='true'] {
+  border-color: var(--accent);
+  background-color: #2c4668;
+}
+
+.high-contrast :focus-visible {
+  outline-color: var(--focus-on-dark);
+}
+
+.high-contrast .btn-primary:focus-visible,
+.high-contrast .btn-success:focus-visible {
+  box-shadow: 0 0 0 6px var(--bg);
+}
+
+.high-contrast main a:not(.btn) {
+  color: var(--accent);
 }
 
 .high-contrast .form-control[aria-invalid='true'],
