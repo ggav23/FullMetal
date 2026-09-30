@@ -1,0 +1,334 @@
+/* ========================================
+   Tela de Detalhes da Demanda
+   ======================================== */
+
+
+/* Página */
+
+.details-page {
+  padding-block: 40px 64px;
+}
+
+
+/* ========================================
+   Layout principal
+   ======================================== */
+
+.demand-details {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 2fr)
+    minmax(280px, 1fr);
+
+  grid-template-areas:
+    "heading heading"
+    "info history"
+    "description history"
+    "actions history";
+
+  gap: 20px;
+
+  align-items: start;
+}
+
+
+/* ========================================
+   Cabeçalho da demanda
+   ======================================== */
+
+.demand-heading {
+  grid-area: heading;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+
+  grid-template-areas:
+    "id status"
+    "title title";
+
+  gap: 10px 24px;
+
+  align-items: center;
+}
+
+
+.demand-id-row {
+  grid-area: id;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  color: var(--muted);
+
+  font-size: 0.85rem;
+}
+
+
+#demanda-id {
+  color: var(--fg);
+  font-family: var(--font-mono);
+}
+
+
+.copy-button {
+  min-height: auto;
+
+  padding: 4px 10px;
+
+  font-size: 0.8rem;
+}
+
+
+.demand-status-row {
+  grid-area: status;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 0.85rem;
+}
+
+
+.demand-heading h1 {
+  grid-area: title;
+
+  margin: 0;
+
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+}
+
+
+/* ========================================
+   Cards
+   ======================================== */
+
+.details-card {
+  padding: 24px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-md);
+
+  background-color: var(--surface);
+
+  box-shadow: var(--shadow-sm);
+}
+
+
+.details-card > h2 {
+  margin: 0 0 20px;
+
+  color: var(--muted);
+
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  letter-spacing: 0.05em;
+
+  text-transform: uppercase;
+}
+
+
+/* Posicionamento dos cards */
+
+.info-card {
+  grid-area: info;
+}
+
+
+.history-card {
+  grid-area: history;
+}
+
+
+.description-card {
+  grid-area: description;
+}
+
+
+.actions-card {
+  grid-area: actions;
+}
+
+
+/* ========================================
+   Informações gerais
+   ======================================== */
+
+.info-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 24px 32px;
+
+  margin: 0;
+}
+
+
+.info-item dt {
+  margin-bottom: 4px;
+
+  color: var(--muted);
+
+  font-size: 0.76rem;
+  font-weight: 700;
+
+  letter-spacing: 0.03em;
+
+  text-transform: uppercase;
+}
+
+
+.info-item dd {
+  margin: 0;
+
+  color: var(--fg);
+
+  font-weight: 500;
+}
+
+
+/* ========================================
+   Histórico
+   ======================================== */
+
+.history-list {
+  margin: 0;
+
+  padding: 0;
+
+  list-style: none;
+}
+
+
+.history-list li {
+  position: relative;
+
+  padding-left: 24px;
+}
+
+
+.history-list li::before {
+  content: "";
+
+  position: absolute;
+
+  top: 7px;
+  left: 0;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background-color: var(--accent);
+}
+
+
+.history-title {
+  margin: 0 0 4px;
+
+  font-weight: 600;
+}
+
+
+.history-meta {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 0.82rem;
+}
+
+
+/* ========================================
+   Descrição
+   ======================================== */
+
+.description-text {
+  margin: 0;
+
+  line-height: 1.7;
+}
+
+
+/* ========================================
+   Área de triagem
+   ======================================== */
+
+.triage-form .form-group {
+  margin-bottom: 16px;
+}
+
+
+.triage-form .action-group {
+  margin-top: 8px;
+}
+
+
+/* ========================================
+   Responsividade
+   ======================================== */
+
+@media (max-width: 800px) {
+
+  .demand-details {
+    grid-template-columns: 1fr;
+
+    grid-template-areas:
+      "heading"
+      "info"
+      "description"
+      "actions"
+      "history";
+  }
+
+}
+
+
+@media (max-width: 580px) {
+
+  .details-page {
+    padding-block: 24px 40px;
+  }
+
+
+  .demand-heading {
+    grid-template-columns: 1fr;
+
+    grid-template-areas:
+      "id"
+      "status"
+      "title";
+
+    gap: 10px;
+  }
+
+
+  .info-grid {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+
+  .details-card {
+    padding: 18px;
+  }
+
+}
