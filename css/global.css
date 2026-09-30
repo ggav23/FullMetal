@@ -354,6 +354,46 @@ textarea {
   text-overflow: ellipsis;
 }
 
+/* A etiqueta DEV distingue a troca local de perfil da autenticação real. */
+.profile-dev-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--touch-target);
+  max-width: 260px;
+  padding: 6px 10px;
+  border: 1px solid rgb(255 255 255 / 22%);
+  border-radius: var(--radius-md);
+  background-color: rgb(255 255 255 / 8%);
+}
+
+.profile-dev-badge {
+  flex: none;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+  background-color: var(--header-fg);
+  color: var(--header-bg);
+  font-size: 0.65rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.profile-dev-select {
+  min-width: 0;
+  max-width: 160px;
+  border: 0;
+  background: transparent;
+  color: var(--header-fg);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-dev-select option {
+  background-color: var(--surface);
+  color: var(--fg);
+}
+
 .triagem-nav {
   display: flex;
   gap: 32px;
@@ -703,7 +743,8 @@ body.high-contrast {
 }
 
 .high-contrast .btn-contrast-toggle,
-.high-contrast .profile-indicator {
+.high-contrast .profile-indicator,
+.high-contrast .profile-dev-control {
   border-color: #738eaf;
   background-color: #1e3453;
 }
@@ -788,6 +829,17 @@ body.high-contrast {
     max-width: 150px;
   }
 
+  .profile-dev-control {
+    width: 150px;
+    gap: 4px;
+    padding-inline: 6px;
+  }
+
+  .profile-dev-select {
+    width: 100%;
+    font-size: 0.75rem;
+  }
+
   .triagem-nav {
     gap: 16px;
     padding-inline: 16px;
@@ -816,6 +868,10 @@ body.high-contrast {
 
   .profile-indicator {
     max-width: 100px;
+  }
+
+  .profile-dev-control {
+    width: 100px;
   }
 
   .profile-value {
