@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Triagem | Fullmetal</title>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/atendimento.css" />
+    <script src="js/header.js" defer></script>
+    <script src="js/demandas.js" defer></script>
+    <script src="js/filtros.js" defer></script>
+    <script src="js/atendimento.js" defer></script>
+  </head>
+  <body data-perfil-pagina="triagem">
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+    <header class="topbar">
+      <nav class="brand-cluster" aria-label="Navegação principal">
+        <a class="brand" href="triagem.html">
+          <span class="brand-logo-container"
+            ><img
+              src="assets/fullmetal-symbol.svg"
+              width="26"
+              height="26"
+              alt=""
+          /></span>
+          <span class="brand-name">FULLMETAL</span
+          ><span class="brand-tag">UnDF</span>
+        </a>
+      </nav>
+      <div class="topbar-actions">
+        <button
+          class="btn-contrast-toggle"
+          type="button"
+          data-contrast-toggle
+          aria-pressed="false"
+          aria-label="Ativar alto contraste"
+          hidden
+        >
+          <span class="contrast-icon" aria-hidden="true">◐</span
+          ><span class="contrast-label">Contraste</span>
+        </button>
+        <div class="profile-container">
+          <p class="profile-indicator">
+            <span class="profile-label">Perfil:</span
+            ><strong class="profile-value" id="perfil-atual">A definir</strong>
+          </p>
+        </div>
+      </div>
+    </header>
+    <nav class="triagem-nav" role="tablist" aria-label="Visões da triagem">
+      <button
+        class="tab-btn active"
+        id="aba-fila"
+        type="button"
+        role="tab"
+        aria-selected="true"
+        aria-controls="painel-fila"
+        tabindex="0"
+      >
+        Fila de Triagem <span class="view-count" data-contagem-fila>—</span>
+      </button>
+      <button
+        class="tab-btn"
+        id="aba-todas"
+        type="button"
+        role="tab"
+        aria-selected="false"
+        aria-controls="painel-todas"
+        tabindex="-1"
+      >
+        Todas as Demandas <span class="view-count" data-contagem-total>—</span>
+      </button>
+    </nav>
+    <main
+      id="conteudo"
+      class="atendimento-page"
+      tabindex="-1"
+      data-tela-atendimento
+    >
+      <h1 class="sr-only">Triagem de demandas</h1>
+      <p
+        class="error-summary atendimento-error"
+        role="alert"
+        data-erro
+        hidden
+      ></p>
+      <section id="painel-fila" role="tabpanel" aria-labelledby="aba-fila">
+        <div class="atendimento-layout">
+          <aside class="queue-pane" aria-labelledby="titulo-fila">
+            <div class="queue-header">
+              <h2 id="titulo-fila">Fila de Triagem</h2>
+              <p>Solicitações aguardando análise e encaminhamento.</p>
+              <label class="sr-only" for="busca-fila"
+                >Buscar na fila de triagem</label
+              >
+              <input
+                class="form-control"
+                id="busca-fila"
+                type="search"
+                placeholder="Buscar nesta fila…"
+                disabled
+                aria-describedby="ajuda-busca"
+              />
+              <p class="field-helper" id="ajuda-busca">
+                Busca indisponível no momento.
+              </p>
+              <button
+                class="btn btn-secondary queue-clear"
+                type="button"
+                data-limpar-fila
+                disabled
+              >
+                Limpar filtros
+              </button>
+            </div>
+            <ul class="queue-list" data-lista-fila></ul>
+            <div class="queue-empty" data-fila-vazia>
+              <h3>Nenhuma demanda disponível</h3>
+              <p>As solicitações pendentes aparecerão nesta fila.</p>
+            </div>
+          </aside>
+          <section
+            class="work-detail"
+            aria-label="Detalhes e encaminhamento"
+            tabindex="-1"
+            data-painel-detalhe
+          >
+            <div class="state-container detail-empty" data-detalhe-vazio>
+              <h2 class="state-title">Nenhuma demanda selecionada</h2>
+              <p class="state-desc">
+                Escolha uma solicitação na fila para consultar os detalhes.
+              </p>
+            </div>
+            <div data-detalhe hidden>
+              <button
+                class="btn btn-back-pill mobile-back"
+                type="button"
+                data-voltar-fila
+              >
+                ← Voltar para a fila
+              </button>
+              <header class="work-detail-header">
+                <p class="demand-id" data-campo="id"></p>
+                <span class="status-badge" data-status></span>
+                <h2 data-campo="titulo"></h2>
+              </header>
+              <div class="work-columns">
+                <div>
+                  <section
+                    class="work-card"
+                    aria-labelledby="titulo-informacoes"
+                  >
+                    <h3 id="titulo-informacoes">Informações da demanda</h3>
+                    <dl class="work-fields">
+                      <div>
+                        <dt>Categoria</dt>
+                        <dd data-campo="categoria"></dd>
+                      </div>
+                      <div>
+                        <dt>Localização</dt>
+                        <dd data-campo="localizacao"></dd>
+                      </div>
+                      <div>
+                        <dt>Solicitante</dt>
+                        <dd data-campo="solicitante"></dd>
+                      </div>
+                      <div>
+                        <dt>Unidade responsável</dt>
+                        <dd data-campo="unidade"></dd>
+                      </div>
+                      <div>
+                        <dt>Data de criação</dt>
+                        <dd data-campo="dataCriacao"></dd>
+                      </div>
+                    </dl>
+                  </section>
+                  <section class="work-card" aria-labelledby="titulo-descricao">
+                    <h3 id="titulo-descricao">Descrição do problema</h3>
+                    <p class="demand-description" data-campo="descricao"></p>
+                  </section>
+                  <section class="work-card" aria-labelledby="titulo-historico">
+                    <h3 id="titulo-historico">Histórico de andamento</h3>
+                    <ol class="work-history" data-historico></ol>
+                  </section>
+                </div>
+                <section
+                  class="work-card action-card"
+                  aria-labelledby="titulo-acoes"
+                >
+                  <h3 id="titulo-acoes">Decisão de triagem e encaminhamento</h3>
+                  <p>
+                    Direcione a solicitação para a unidade responsável pelo
+                    atendimento.
+                  </p>
+                  <label class="form-label" for="unidade-destino"
+                    >Unidade de destino</label
+                  >
+                  <select class="form-control" id="unidade-destino" disabled>
+                    <option value="">Selecione uma unidade</option>
+                  </select>
+                  <div class="work-actions">
+                    <button
+                      class="btn btn-primary"
+                      type="button"
+                      disabled
+                      data-acao="encaminhar"
+                    >
+                      Encaminhar demanda</button
+                    ><button
+                      class="btn btn-danger-outline"
+                      type="button"
+                      disabled
+                      data-acao="cancelar"
+                    >
+                      Cancelar demanda
+                    </button>
+                  </div>
+                  <p class="field-helper">Ações indisponíveis no momento.</p>
+                </section>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+      <section
+        id="painel-todas"
+        class="audit-panel"
+        role="tabpanel"
+        aria-labelledby="aba-todas"
+        hidden
+      >
+        <header class="audit-header">
+          <h2>Todas as Demandas</h2>
+          <p>Acompanhamento das solicitações cadastradas e de seu andamento.</p>
+        </header>
+        <div class="audit-filters">
+          <label for="busca-todas"
+            >Buscar demandas<input
+              class="form-control"
+              id="busca-todas"
+              type="search"
+              placeholder="ID, título ou localização…"
+              disabled /></label
+          ><label for="status-todas"
+            >Status<select class="form-control" id="status-todas" disabled>
+              <option value="">Todos os status</option>
+              <option>Pendente</option>
+              <option>Em atendimento</option>
+              <option>Concluída</option>
+              <option>Cancelada</option>
+            </select></label
+          ><button
+            class="btn btn-secondary"
+            type="button"
+            data-limpar-auditoria
+            disabled
+          >
+            Limpar filtros
+          </button>
+        </div>
+        <div class="state-container" data-auditoria-vazia>
+          <h3 class="state-title">Nenhuma demanda disponível</h3>
+          <p class="state-desc">
+            As demandas disponíveis para consulta aparecerão aqui.
+          </p>
+        </div>
+        <div class="audit-table-wrapper" data-tabela-auditoria hidden>
+          <table class="audit-table" role="table">
+            <caption class="sr-only">
+              Demandas disponíveis para a triagem
+            </caption>
+            <thead role="rowgroup">
+              <tr role="row">
+                <th scope="col">ID</th>
+                <th scope="col">Título</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Localização</th>
+                <th scope="col">Unidade</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody data-auditoria role="rowgroup"></tbody>
+          </table>
+        </div>
+      </section>
+      <p class="sr-only" role="status" aria-live="polite" data-anuncio></p>
+    </main>
+    <noscript
+      ><p class="container">
+        Ative o JavaScript para alternar entre a fila e os detalhes das
+        demandas.
+      </p></noscript
+    >
+  </body>
+</html>

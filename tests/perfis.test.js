@@ -49,7 +49,8 @@ function iniciarPagina({ protocol = 'file:', hostname = '', dados = {}, armazena
       dados[chave] = conteudo;
     }
   };
-  const window = { location: { protocol, hostname } };
+  const destinos = [];
+  const window = { location: { protocol, hostname, assign: destino => destinos.push(destino) } };
   class CustomEvent {
     constructor(type, options) {
       this.type = type;
@@ -60,7 +61,7 @@ function iniciarPagina({ protocol = 'file:', hostname = '', dados = {}, armazena
   vm.runInNewContext(script, { document, window, localStorage, CustomEvent });
   const controle = recipiente.filhos[0];
   const seletor = controle?.filhos.find(filho => filho.tagName === 'select');
-  return { api: window.FullmetalPerfis, document, valor, indicador, seletor, eventos, dados };
+  return { api: window.FullmetalPerfis, document, valor, indicador, seletor, eventos, dados, destinos };
 }
 
 test('troca entre os três perfis e informa a tela sobre a mudança', () => {
@@ -76,11 +77,18 @@ test('troca entre os três perfis e informa a tela sobre a mudança', () => {
   assert.equal(pagina.document.body.dataset.perfilAtivo, 'triagem');
   assert.equal(pagina.api.pode('cadastrar_demanda'), false);
   assert.equal(pagina.api.pode('alterar_status'), true);
+  assert.equal(pagina.api.pode('encaminhar_demanda'), true);
+  assert.equal(pagina.api.pode('definir_prioridade'), false);
+  assert.equal(pagina.destinos[0], 'triagem.html');
 
   pagina.seletor.value = 'responsavel';
   pagina.seletor.listeners.change();
   assert.equal(pagina.valor.textContent, 'Responsável');
+  assert.equal(pagina.api.pode('definir_prioridade'), true);
+  assert.equal(pagina.api.pode('concluir_demanda'), true);
+  assert.equal(pagina.api.pode('encaminhar_demanda'), false);
   assert.equal(pagina.dados['fullmetal-dev-perfil'], 'responsavel');
+  assert.equal(pagina.destinos[1], 'responsavel.html');
   assert.deepEqual(pagina.eventos.map(evento => evento.detail.perfil), ['triagem', 'responsavel']);
 });
 
@@ -102,4 +110,54 @@ test('continua funcionando sem armazenamento e não mostra o seletor fora do amb
   assert.equal(publicado.indicador.hidden, false);
   assert.equal(publicado.api.obterUsuarioAtual(), null);
   assert.equal(publicado.api.definirPerfil('triagem'), false);
+  assert.equal(publicado.api.definirUnidadeDesenvolvimento('unidade-1'), false);
+});
+
+test('mantém a identidade ao trocar de perfil e ao recarregar a página', () => {
+  const dados = {};
+  const pagina = iniciarPagina({ dados });
+  const usuario = pagina.api.obterUsuarioAtual();
+  assert.match(usuario.id, /^dev-.+/);
+  assert.equal(usuario.nome, null);
+  assert.equal(usuario.unidade, null);
+  assert.equal(usuario.origem, 'desenvolvimento');
+  pagina.api.definirPerfil('responsavel');
+  assert.equal(pagina.api.obterUsuarioAtual().id, usuario.id);
+  assert.equal(pagina.api.obterUsuarioAtual().perfil, 'responsavel');
+  assert.equal(iniciarPagina({ dados }).api.obterUsuarioAtual().id, usuario.id);
+  assert.equal(pagina.eventos[0].detail.usuario.id, usuario.id);
+});
+
+test('unidade precisa ser informada explicitamente e não pode ser alterada pela cópia retornada', () => {
+  const dados = {};
+  const pagina = iniciarPagina({ dados });
+  assert.equal(pagina.api.definirUnidadeDesenvolvimento({ unidade: 'unidade-1' }), false);
+  assert.equal(pagina.api.obterUsuarioAtual().unidade, null);
+  assert.equal(pagina.api.definirUnidadeDesenvolvimento('  unidade-1  '), true);
+  const usuario = pagina.api.obterUsuarioAtual();
+  usuario.id = 'outro';
+  usuario.unidade = 'outra';
+  assert.equal(pagina.api.obterUsuarioAtual().unidade, 'unidade-1');
+  assert.notEqual(pagina.api.obterUsuarioAtual().id, 'outro');
+  assert.equal(iniciarPagina({ dados }).api.obterUsuarioAtual().unidade, 'unidade-1');
+  assert.equal(pagina.eventos[0].type, 'fullmetal:usuario-alterado');
+  assert.equal(pagina.eventos[0].detail.usuario.unidade, 'unidade-1');
+  assert.equal(pagina.api.definirUnidadeDesenvolvimento(null), true);
+  assert.equal(iniciarPagina({ dados }).api.obterUsuarioAtual().unidade, null);
+});
+
+test('recupera identidade inválida e funciona com armazenamento bloqueado', () => {
+  for (const salvo of ['{inválido', JSON.stringify({ id: 42, unidade: 'unidade-1' })]) {
+    const dados = { 'fullmetal-dev-usuario': salvo };
+    const pagina = iniciarPagina({ dados });
+    assert.match(pagina.api.obterUsuarioAtual().id, /^dev-.+/);
+    assert.equal(pagina.api.obterUsuarioAtual().unidade, null);
+    assert.equal(JSON.parse(dados['fullmetal-dev-usuario']).id, pagina.api.obterUsuarioAtual().id);
+  }
+  const pagina = iniciarPagina({ armazenamentoFalha: true });
+  const id = pagina.api.obterUsuarioAtual().id;
+  pagina.api.definirPerfil('triagem');
+  assert.equal(pagina.api.obterUsuarioAtual().id, id);
+  assert.equal(pagina.api.definirUnidadeDesenvolvimento('unidade-1'), true);
+  assert.equal(pagina.api.obterUsuarioAtual().unidade, 'unidade-1');
 });
