@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dados de teste | Fullmetal</title>
+    <link rel="icon" href="assets/fullmetal-symbol.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/dados-teste.css" />
+    <script src="js/header.js" defer></script>
+    <script src="js/catalogos.js" defer></script>
+    <script src="js/demandas.js" defer></script>
+    <script src="js/visibilidade.js" defer></script>
+    <script src="js/dados.js" defer></script>
+    <script src="js/exemplos.js" defer></script>
+    <script src="js/dados-teste.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+    <header class="topbar">
+      <nav class="brand-cluster" aria-label="Navegação principal">
+        <a class="brand" href="index.html">
+          <span class="brand-logo-container"
+            ><img
+              src="assets/fullmetal-symbol.svg"
+              width="26"
+              height="26"
+              alt=""
+          /></span>
+          <span class="brand-name">FULLMETAL</span
+          ><span class="brand-tag">UnDF</span>
+        </a>
+      </nav>
+      <div class="topbar-actions">
+        <button
+          class="btn-contrast-toggle"
+          type="button"
+          data-contrast-toggle
+          aria-pressed="false"
+          aria-label="Ativar alto contraste"
+          hidden
+        >
+          <span class="contrast-icon" aria-hidden="true">◐</span
+          ><span class="contrast-label">Contraste</span>
+        </button>
+      </div>
+    </header>
+    <main class="container test-data-page" id="conteudo" tabindex="-1">
+      <h1>Dados de teste</h1>
+      <p class="test-data-intro">
+        Importe exemplos do JSON para experimentar o fluxo de demandas, sem
+        backend.
+      </p>
+      <section class="test-data-card" aria-labelledby="titulo-importacao">
+        <h2 id="titulo-importacao">Importar demandas de exemplo</h2>
+        <p>
+          Os exemplos incluem os quatro status, as três unidades e uma demanda
+          de outro solicitante. A autoria dos demais exemplos será associada ao
+          seu usuário local, sem trocar seu perfil ou unidade.
+        </p>
+        <p>
+          Registros existentes não serão substituídos. Importar novamente
+          preserva exemplos que você já editou e não duplica seus IDs. Depois da
+          importação, as alterações ficam no <code>localStorage</code>, não no
+          arquivo JSON.
+        </p>
+        <p class="test-data-notice" data-indisponivel>
+          Esta ferramenta exige JavaScript e está disponível somente em arquivo
+          local, localhost ou 127.0.0.1.
+        </p>
+        <div data-importacao hidden>
+          <p
+            class="error-summary"
+            role="alert"
+            tabindex="-1"
+            data-erro-importacao
+            hidden
+          ></p>
+          <p
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            data-resultado-importacao
+          ></p>
+          <div data-importacao-projeto>
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-importar-projeto
+              disabled
+            >
+              Importar exemplos do projeto
+            </button>
+            <p class="field-helper">
+              Lê <code>dados/demandas-exemplo.json</code> e salva os exemplos
+              neste navegador.
+            </p>
+          </div>
+          <p class="field-helper" data-ajuda-arquivo hidden>
+            Ao abrir por duplo clique, o navegador pode impedir a leitura
+            automática do JSON. Selecione o arquivo abaixo para importar sem
+            servidor.
+          </p>
+          <details class="test-data-file" data-arquivo-manual>
+            <summary>Selecionar um arquivo JSON</summary>
+            <form data-form-importacao>
+              <label class="form-label" for="arquivo-exemplos"
+                >Arquivo de exemplos</label
+              >
+              <input
+                class="form-control"
+                type="file"
+                id="arquivo-exemplos"
+                accept=".json,application/json"
+                aria-describedby="ajuda-formato"
+                disabled
+              />
+              <p class="field-helper" id="ajuda-formato">
+                Use o formato de
+                <a href="dados/demandas-exemplo.json" download
+                  >dados/demandas-exemplo.json</a
+                >, com até 128 KB.
+              </p>
+              <button
+                class="btn btn-secondary"
+                type="submit"
+                data-importar-arquivo
+                disabled
+              >
+                Importar arquivo selecionado
+              </button>
+            </form>
+          </details>
+        </div>
+      </section>
+      <a class="btn btn-back-pill" href="index.html">Voltar ao sistema</a>
+      <noscript
+        ><p>
+          Ative o JavaScript para importar os exemplos. Nenhum dado foi
+          alterado.
+        </p></noscript
+      >
+    </main>
+  </body>
+</html>

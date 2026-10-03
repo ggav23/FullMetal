@@ -1,0 +1,241 @@
+{
+  "versao": 1,
+  "demandas": [
+    {
+      "id": "TESTE-001",
+      "titulo": "Verificar iluminação da sala",
+      "descricao": "Uma luminária não acende. Solicitação de exemplo para testar o encaminhamento pela triagem.",
+      "categoria": "manutencao",
+      "localizacao": "Sala de exemplo A",
+      "autor": "atual",
+      "status": "Pendente",
+      "unidade": null,
+      "prioridade": null,
+      "dataCriacao": "2026-10-01T09:00:00.000Z",
+      "historico": [
+        {
+          "descricao": "Demanda de teste registrada.",
+          "data": "2026-10-01T09:00:00.000Z",
+          "perfil": "solicitante"
+        }
+      ]
+    },
+    {
+      "id": "TESTE-002",
+      "titulo": "Verificar conexão de rede",
+      "descricao": "O ponto de rede está sem conexão. Exemplo pendente de análise e encaminhamento.",
+      "categoria": "ti",
+      "localizacao": "Laboratório de exemplo",
+      "autor": "atual",
+      "status": "Pendente",
+      "unidade": null,
+      "prioridade": null,
+      "dataCriacao": "2026-10-01T10:00:00.000Z",
+      "historico": [
+        {
+          "descricao": "Demanda de teste registrada.",
+          "data": "2026-10-01T10:00:00.000Z",
+          "perfil": "solicitante"
+        }
+      ]
+    },
+    {
+      "id": "TESTE-003",
+      "titulo": "Ajustar a fechadura da porta",
+      "descricao": "A porta apresenta dificuldade para fechar. Exemplo encaminhado, ainda sem prioridade definida.",
+      "categoria": "manutencao",
+      "localizacao": "Sala de exemplo B",
+      "autor": "atual",
+      "status": "Pendente",
+      "unidade": "manutencao",
+      "prioridade": null,
+      "dataCriacao": "2026-10-01T11:00:00.000Z",
+      "historico": [
+        {
+          "descricao": "Demanda de teste registrada.",
+          "data": "2026-10-01T11:00:00.000Z",
+          "perfil": "solicitante"
+        },
+        {
+          "descricao": "Demanda encaminhada para Manutenção.",
+          "data": "2026-10-01T12:00:00.000Z",
+          "perfil": "triagem"
+        }
+      ]
+    },
+    {
+      "id": "TESTE-004",
+      "titulo": "Reparar um ponto de vazamento",
+      "descricao": "Há um vazamento no ponto de água. Exemplo com prioridade definida pelo responsável e atendimento iniciado.",
+      "categoria": "manutencao",
+      "localizacao": "Copa de exemplo",
+      "autor": "atual",
+      "status": "Em atendimento",
+      "unidade": "manutencao",
+      "prioridade": "alta",
+      "dataCriacao": "2026-10-01T08:00:00.000Z",
+      "historico": [
+        {
+          "descricao": "Demanda de teste registrada.",
+          "data": "2026-10-01T08:00:00.000Z",
+          "perfil": "solicitante"
+        },
+        {
+          "descricao": "Demanda encaminhada para Manutenção.",
+          "data": "2026-10-01T09:00:00.000Z",
+          "perfil": "triagem"
+        },
+        {
+          "descricao": "Prioridade definida: Alta.",
+          "data": "2026-10-01T10:00:00.000Z",
+          "perfil": "responsavel"
+        },
+        {
+          "descricao": "Atendimento iniciado.",
+          "data": "2026-10-01T11:00:00.000Z",
+          "perfil": "responsavel"
+        }
+      ]
+    },
+    {
+      "id": "TESTE-005",
+      "titulo": "Ajustar a fixação de uma prateleira",
+      "descricao": "Solicitação de exemplo já atendida para conferir os estados de conclusão e o histórico.",
+      "categoria": "manutencao",
+      "localizacao": "Depósito de exemplo",
+      "autor": "atual",
+      "status": "Concluída",
+      "unidade": "manutencao",
+      "prioridade": "normal",
+      "dataCriacao": "2026-10-01T07:00:00.000Z",
+      "historico": [
+        {
+          "descricao": "Demanda de teste registrada.",
+          "data": "2026-10-01T07:00:00.000Z",
+          "perfil": "solicitante"
+        },
+        {
+          "descricao": "Demanda encaminhada para Manutenção.",
+          "data": "2026-10-01T08:00:00.000Z",
+          "perfil": "triagem"
+        },
+        {
+          "descricao": "Prioridade definida: Normal.",
+          "data": "2026-10-01T09:00:00.000Z",
+          "perfil": "responsavel"
+        },
+        {
+          "descricao": "Atendimento iniciado.",
+          "data": "2026-10-01T10:00:00.000Z",
+          "perfil": "responsavel"
+        },
+        {
+          "descricao": "Atendimento concluído. Fixação revisada.",
+          "data": "2026-10-01T11:00:00.000Z",
+          "perfil": "responsavel"
+        }
+      ]
+    },
+    {
+      "id": "TESTE-006",
+      "titulo": "Instalar aplicativo na estação",
+      "descricao": "Exemplo cancelado pelo solicitante antes do encaminhamento, para testar um estado sem novas ações.",
+      "categoria": "ti",
+      "localizacao": "Estação de exemplo A",
+      "autor": "atual",
+      "status": "Cancelada",
+      "unidade": null,
+      "prioridade": null,
+      "dataCriacao": "2026-10-01T13:00:00.000Z",
+      "historico": [
+        {
+          "descricao": "Demanda de teste registrada.",
+          "data": "2026-10-01T13:00:00.000Z",
+          "perfil": "solicitante"
+        },
+        {
+          "descricao": "Demanda cancelada.",
+          "data": "2026-10-01T14:00:00.000Z",
+          "perfil": "solicitante"
+        }
+      ]
+    },
+    {
+      "id": "TESTE-007",
+      "titulo": "Verificar a impressão de documentos",
+      "descricao": "A impressora não recebe os arquivos. Exemplo encaminhado para TI, aguardando atendimento.",
+      "categoria": "ti",
+      "localizacao": "Estação de exemplo B",
+      "autor": "atual",
+      "status": "Pendente",
+      "unidade": "ti",
+      "prioridade": null,
+      "dataCriacao": "2026-10-01T15:00:00.000Z",
+      "historico": [
+        {
+          "descricao": "Demanda de teste registrada.",
+          "data": "2026-10-01T15:00:00.000Z",
+          "perfil": "solicitante"
+        },
+        {
+          "descricao": "Demanda encaminhada para TI.",
+          "data": "2026-10-01T16:00:00.000Z",
+          "perfil": "triagem"
+        }
+      ]
+    },
+    {
+      "id": "TESTE-008",
+      "titulo": "Orientar atualização cadastral",
+      "descricao": "Solicitação de orientação sobre atualização cadastral. Exemplo em atendimento por Recursos Humanos.",
+      "categoria": "rh",
+      "localizacao": "Setor de exemplo",
+      "autor": "atual",
+      "status": "Em atendimento",
+      "unidade": "rh",
+      "prioridade": "media",
+      "dataCriacao": "2026-10-01T09:30:00.000Z",
+      "historico": [
+        {
+          "descricao": "Demanda de teste registrada.",
+          "data": "2026-10-01T09:30:00.000Z",
+          "perfil": "solicitante"
+        },
+        {
+          "descricao": "Demanda encaminhada para Recursos Humanos.",
+          "data": "2026-10-01T10:30:00.000Z",
+          "perfil": "triagem"
+        },
+        {
+          "descricao": "Prioridade definida: Média.",
+          "data": "2026-10-01T11:30:00.000Z",
+          "perfil": "responsavel"
+        },
+        {
+          "descricao": "Atendimento iniciado.",
+          "data": "2026-10-01T12:30:00.000Z",
+          "perfil": "responsavel"
+        }
+      ]
+    },
+    {
+      "id": "TESTE-009",
+      "titulo": "Verificar equipamento de outra sala",
+      "descricao": "Exemplo de outro solicitante: deve aparecer para a Triagem, mas não em Minhas Demandas do usuário local.",
+      "categoria": "ti",
+      "localizacao": "Sala de exemplo C",
+      "autor": "outro",
+      "status": "Pendente",
+      "unidade": null,
+      "prioridade": null,
+      "dataCriacao": "2026-10-01T17:00:00.000Z",
+      "historico": [
+        {
+          "descricao": "Demanda de teste registrada.",
+          "data": "2026-10-01T17:00:00.000Z",
+          "perfil": "solicitante"
+        }
+      ]
+    }
+  ]
+}

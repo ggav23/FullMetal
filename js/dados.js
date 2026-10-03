@@ -54,6 +54,37 @@
     if (globalThis.document && globalThis.CustomEvent)
       document.dispatchEvent(new CustomEvent("fullmetal:demandas-alteradas"));
   }
+  function importarExemplos(conteudo) {
+    const usuario = usuarioAtual();
+    const local = globalThis.location;
+    const emDesenvolvimento =
+      local?.protocol === "file:" ||
+      ["localhost", "127.0.0.1"].includes(local?.hostname);
+    if (
+      !emDesenvolvimento ||
+      usuario?.origem !== "desenvolvimento" ||
+      !["solicitante", "triagem", "responsavel"].includes(usuario?.perfil) ||
+      typeof usuario?.id !== "string" ||
+      !usuario.id.trim() ||
+      !globalThis.FullmetalExemplos
+    )
+      throw new Error(
+        "A importação de exemplos está disponível apenas no desenvolvimento local.",
+      );
+
+    // Valido o arquivo inteiro antes de gravar; não misturo uma importação incompleta aos dados.
+    const exemplos = FullmetalExemplos.preparar(conteudo, usuario);
+    const existentes = listar();
+    const ids = new Set(existentes.map((item) => String(item.id)));
+    const novos = exemplos.filter((item) => !ids.has(item.id));
+    // IDs repetidos são preservados, inclusive quando o exemplo já foi editado no sistema.
+    if (novos.length) gravar([...existentes, ...novos]);
+    return {
+      importadas: novos.length,
+      ignoradas: exemplos.length - novos.length,
+      preservadas: existentes.length,
+    };
+  }
   function salvarNova(campos) {
     const nova = FullmetalDemandas.criar(campos, usuarioAtual());
     const registros = listar();
@@ -141,5 +172,6 @@
     obter,
     salvarNova,
     executar,
+    importarExemplos,
   });
 })();

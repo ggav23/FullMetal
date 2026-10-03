@@ -110,6 +110,8 @@ search select {
   gap: 1rem;
   width: 100%;
   max-width: 100%;
+  /* Preencho a altura da linha do grid sem fixar uma medida ou cortar conteúdo. */
+  height: 100%;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   overflow-wrap: anywhere; /* Impede quebra de layout em ecrãs estreitos */
 }
@@ -151,6 +153,8 @@ search select {
 }
 
 .card-footer {
+  /* Alinho data e ação na base mesmo quando os títulos ocupam alturas diferentes. */
+  margin-top: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
