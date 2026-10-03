@@ -1,10 +1,16 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Nova demanda | Fullmetal</title>
-    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/style-cadastro.css" />
+    <script src="js/header.js" defer></script>
+    <script src="js/catalogos.js" defer></script>
+    <script src="js/demandas.js" defer></script>
+    <script src="js/visibilidade.js" defer></script>
+    <script src="js/dados.js" defer></script>
     <script src="js/cadastrar.js" defer></script>
   </head>
   <body>
@@ -14,7 +20,12 @@
       <nav class="brand-cluster" aria-label="Navegação principal">
         <a class="brand" href="painel-de-demandas.html">
           <span class="brand-logo-container">
-            <img src="assets/fullmetal-symbol.svg" width="26" height="26" alt="">
+            <img
+              src="assets/fullmetal-symbol.svg"
+              width="26"
+              height="26"
+              alt=""
+            />
           </span>
           <span class="brand-name">FULLMETAL</span>
           <span class="brand-tag">UnDF</span>
@@ -22,13 +33,20 @@
       </nav>
 
       <div class="topbar-actions">
-        <button class="btn-contrast-toggle" type="button" data-contrast-toggle aria-pressed="false" aria-label="Ativar alto contraste" hidden>
+        <button
+          class="btn-contrast-toggle"
+          type="button"
+          data-contrast-toggle
+          aria-pressed="false"
+          aria-label="Ativar alto contraste"
+          hidden
+        >
           <span class="contrast-icon" aria-hidden="true">◐</span>
           <span class="contrast-label">Contraste</span>
         </button>
 
         <div class="profile-container">
-          <!-- O perfil vem da identificação do usuário; não altero permissões pelo navegador. -->
+          <!-- Fora do desenvolvimento, este indicador apenas exibe o perfil identificado. -->
           <p class="profile-indicator">
             <span class="profile-label">Perfil:</span>
             <strong class="profile-value" id="perfil-atual">A definir</strong>
@@ -37,11 +55,20 @@
       </div>
     </header>
 
-    <main id="conteudo" class="container" tabindex="-1">
+    <main id="conteudo" class="container cadastro-page" tabindex="-1">
       <h1>Nova demanda</h1>
-      <p>Preencha os campos obrigatórios para registrar sua solicitação.</p>
+      <p class="cadastro-intro">
+        Preencha os dados para registrar sua solicitação. Todos os campos são
+        obrigatórios.
+      </p>
+      <p
+        id="cadastro-indisponivel"
+        class="error-summary"
+        role="alert"
+        hidden
+      ></p>
 
-      <form id="formulario-demanda">
+      <form id="formulario-demanda" novalidate>
         <fieldset class="form-fieldset">
           <legend>Dados da demanda</legend>
 
@@ -56,8 +83,10 @@
               maxlength="100"
               required
               aria-describedby="ajuda-titulo"
-            >
-            <p id="ajuda-titulo" class="field-helper">Entre 5 e 100 caracteres.</p>
+            />
+            <p id="ajuda-titulo" class="field-helper">
+              Entre 5 e 100 caracteres.
+            </p>
           </div>
 
           <div class="form-group">
@@ -76,30 +105,68 @@
 
           <div class="form-group">
             <label class="form-label" for="categoria">Categoria</label>
-            <select class="form-control" id="categoria" name="categoria" required disabled aria-describedby="ajuda-categoria">
+            <select
+              class="form-control"
+              id="categoria"
+              name="categoria"
+              required
+              disabled
+              aria-describedby="ajuda-categoria"
+            >
               <option value="" selected>Selecione uma categoria</option>
               <!-- Adicionar somente as categorias aprovadas para o projeto. -->
             </select>
-            <p id="ajuda-categoria" class="field-helper">As categorias ainda precisam ser definidas.</p>
+            <p id="ajuda-categoria" class="field-helper">
+              Selecione a categoria adequada para sua solicitação.
+            </p>
           </div>
 
           <div class="form-group">
             <label class="form-label" for="localizacao">Localização</label>
-            <input class="form-control" id="localizacao" name="localizacao" type="text" required aria-describedby="ajuda-localizacao">
-            <p id="ajuda-localizacao" class="field-helper">Informe o local ou sala da demanda.</p>
+            <input
+              class="form-control"
+              id="localizacao"
+              name="localizacao"
+              type="text"
+              required
+              aria-describedby="ajuda-localizacao"
+            />
+            <p id="ajuda-localizacao" class="field-helper">
+              Informe o local ou sala da demanda.
+            </p>
           </div>
         </fieldset>
 
-        <!-- As mensagens serão exibidas após a validação e o salvamento serem implementados. -->
-        <p id="mensagem-erro" class="error-summary" role="alert" hidden></p>
-        <p id="mensagem-sucesso" class="success-summary" role="status" aria-live="polite" hidden></p>
+        <div
+          id="mensagem-erro"
+          class="error-summary"
+          role="alert"
+          tabindex="-1"
+          hidden
+        ></div>
+        <div
+          id="mensagem-sucesso"
+          class="success-summary"
+          role="status"
+          aria-live="polite"
+          tabindex="-1"
+          hidden
+        ></div>
 
-        <p>O envio ficará disponível quando as categorias e o salvamento forem implementados.</p>
         <div class="action-group">
-          <button class="btn btn-primary" type="submit" disabled>Salvar demanda</button>
-          <a class="btn btn-secondary" href="painel-de-demandas.html">Cancelar e voltar</a>
+          <button class="btn btn-primary" type="submit" disabled>
+            Salvar demanda
+          </button>
+          <a class="btn btn-secondary" href="painel-de-demandas.html"
+            >Cancelar e voltar</a
+          >
         </div>
       </form>
     </main>
+    <noscript
+      ><p class="container">
+        Ative o JavaScript para cadastrar uma demanda.
+      </p></noscript
+    >
   </body>
 </html>

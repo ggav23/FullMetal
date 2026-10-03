@@ -7,6 +7,29 @@
     CANCELADA: "Cancelada",
   });
 
+  function validar(campos) {
+    const valores = {};
+    for (const campo of ["titulo", "descricao", "categoria", "localizacao"]) {
+      valores[campo] =
+        typeof campos?.[campo] === "string" ? campos[campo].trim() : "";
+    }
+    const erros = {};
+    if (valores.titulo.length < 5 || valores.titulo.length > 100)
+      erros.titulo = "O título deve conter entre 5 e 100 caracteres.";
+    if (!valores.descricao || valores.descricao.length > 500)
+      erros.descricao =
+        "Por favor, descreva o problema com até 500 caracteres.";
+    if (
+      !FullmetalCatalogos.categorias.some(
+        (item) => item.id === valores.categoria,
+      )
+    )
+      erros.categoria = "Selecione uma categoria válida para a demanda.";
+    if (!valores.localizacao)
+      erros.localizacao = "Informe o local ou sala onde ocorreu a demanda.";
+    return { valores, erros };
+  }
+
   function criar(campos, usuario) {
     if (
       !usuario ||
@@ -18,15 +41,8 @@
         "É necessário identificar o solicitante antes de cadastrar uma demanda.",
       );
     }
-    const dados = {};
-    for (const campo of ["titulo", "descricao", "categoria", "localizacao"]) {
-      if (typeof campos?.[campo] !== "string" || !campos[campo].trim()) {
-        throw new Error("Informe título, descrição, categoria e localização.");
-      }
-      dados[campo] = campos[campo].trim();
-    }
-
-    // A validação detalhada do formulário continua sendo da 04.01.
+    const { valores: dados, erros } = validar(campos);
+    if (Object.keys(erros).length) throw new Error(Object.values(erros)[0]);
     // Uso apenas campos conhecidos: o formulário não define status, autoria ou prioridade.
     const dataCriacao = new Date().toISOString();
     const id =
@@ -56,5 +72,5 @@
   // solicitanteId identifica a autoria; solicitante é somente o nome de exibição.
   // unidade deve usar a mesma chave em usuário, demanda e contexto de atendimento.
   // Registros antigos sem autoria/unidade não devem receber esses valores por suposição.
-  globalThis.FullmetalDemandas = Object.freeze({ STATUS, criar });
+  globalThis.FullmetalDemandas = Object.freeze({ STATUS, criar, validar });
 })();

@@ -1,86 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel de Demandas</title>
-    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/listagem.css" />
     <script src="js/header.js" defer></script>
-</head>
-<body>
+    <script src="js/catalogos.js" defer></script>
+    <script src="js/demandas.js" defer></script>
+    <script src="js/visibilidade.js" defer></script>
+    <script src="js/dados.js" defer></script>
+    <script src="js/interface.js" defer></script>
+    <script src="js/filtros.js" defer></script>
+    <script src="js/listagem-demandas.js" defer></script>
+  </head>
+  <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
 
     <header class="topbar">
-        <nav class="brand-cluster" aria-label="Navegação principal">
-            <a class="brand" href="painel-de-demandas.html" aria-current="page">
-                <span class="brand-logo-container">
-                    <img src="assets/fullmetal-symbol.svg" width="26" height="26" alt="">
-                </span>
-                <span class="brand-name">FULLMETAL</span>
-                <span class="brand-tag">UnDF</span>
-            </a>
-        </nav>
+      <nav class="brand-cluster" aria-label="Navegação principal">
+        <a class="brand" href="painel-de-demandas.html" aria-current="page">
+          <span class="brand-logo-container">
+            <img
+              src="assets/fullmetal-symbol.svg"
+              width="26"
+              height="26"
+              alt=""
+            />
+          </span>
+          <span class="brand-name">FULLMETAL</span>
+          <span class="brand-tag">UnDF</span>
+        </a>
+      </nav>
 
-        <div class="topbar-actions">
-            <button class="btn-contrast-toggle" type="button" data-contrast-toggle aria-pressed="false" aria-label="Ativar alto contraste" hidden>
-                <span class="contrast-icon" aria-hidden="true">◐</span>
-                <span class="contrast-label">Contraste</span>
-            </button>
+      <div class="topbar-actions">
+        <button
+          class="btn-contrast-toggle"
+          type="button"
+          data-contrast-toggle
+          aria-pressed="false"
+          aria-label="Ativar alto contraste"
+          hidden
+        >
+          <span class="contrast-icon" aria-hidden="true">◐</span>
+          <span class="contrast-label">Contraste</span>
+        </button>
 
-            <div class="profile-container">
-                <p class="profile-indicator">
-                    <span class="profile-label">Perfil:</span>
-                    <strong class="profile-value" id="perfil-atual">A definir</strong>
-                </p>
-            </div>
+        <div class="profile-container">
+          <p class="profile-indicator">
+            <span class="profile-label">Perfil:</span>
+            <strong class="profile-value" id="perfil-atual">A definir</strong>
+          </p>
         </div>
+      </div>
     </header>
 
-    <main id="conteudo" class="container" tabindex="-1">
-        <h1>Gerenciamento de Demandas</h1>
-        <a class="btn btn-primary" href="cadastro.html">Nova Demanda</a>
+    <main id="conteudo" class="container listagem-page" tabindex="-1">
+      <h1>Gerenciamento de Demandas</h1>
+      <a class="btn btn-primary" href="cadastro.html" data-nova-demanda
+        >Nova demanda</a
+      >
 
-        <!-- busca e filtros -->
-        <search>
-            <form action="#" method="GET">
-                <fieldset>
-                    <legend>Buscar e Filtrar Demandas</legend>
-                    
-                    <!-- busca -->
-                    <label for="termo-busca">Pesquisar:</label>
-                    <input type="search" id="termo-busca" name="q" placeholder="Digite o título ou ID...">
+      <!-- busca e filtros -->
+      <search>
+        <form action="#" method="GET">
+          <fieldset>
+            <legend>Buscar e Filtrar Demandas</legend>
 
-                    <!-- filtros -->
-                    <label for="filtro-departamento">Departamento:</label>
-                    <select id="filtro-departamento" name="departamento">
-                        <option value="">Todos</option>
-                        <option value="ti">T.I.</option>
-                        <option value="manutencao">Manutenção</option>
-                        <option value="rh">Recursos Humanos</option>
-                    </select>
+            <!-- busca -->
+            <div class="list-filter-field">
+              <label for="termo-busca">Pesquisar:</label>
+              <input
+                class="form-control"
+                type="search"
+                id="termo-busca"
+                name="q"
+                placeholder="ID, título ou localização…"
+              />
+            </div>
 
-                    <!-- status -->
-                    <label for="Status">Status:</label>
-                    <select id="Status" name="status">
-                        <option value="">Todos</option>
-                        <option value="pendente">Pendentes</option>
-                        <option value="andamento">Em Andamento</option>
-                        <option value="concluido">Concluído</option>
-                    </select>
+            <!-- filtros -->
+            <div class="list-filter-field">
+              <label for="filtro-departamento">Unidade responsável:</label>
+              <select
+                class="form-control"
+                id="filtro-departamento"
+                name="unidade"
+              >
+                <option value="">Todas as unidades</option>
+              </select>
+            </div>
 
-                    <button type="submit">Aplicar</button>
-                </fieldset>
-            </form>
-        </search>
+            <!-- status -->
+            <div class="list-filter-field">
+              <label for="Status">Status:</label>
+              <select class="form-control" id="Status" name="status">
+                <option value="">Todos os status</option>
+                <option>Pendente</option>
+                <option>Em atendimento</option>
+                <option>Concluída</option>
+                <option>Cancelada</option>
+              </select>
+            </div>
 
-        <!-- listagem -->
-        <section aria-labelledby="titulo-listagem">
-            <h2 id="titulo-listagem">Demandas Encontradas</h2>
-            <ul id="lista-demandas">
-            </ul>
-        </section>
+            <div class="list-filter-actions">
+              <button class="btn btn-primary" type="submit">Aplicar</button>
+              <button
+                class="btn btn-secondary"
+                type="button"
+                data-limpar-listagem
+                disabled
+              >
+                Limpar filtros
+              </button>
+            </div>
+          </fieldset>
+        </form>
+      </search>
 
+      <!-- listagem -->
+      <section aria-labelledby="titulo-listagem">
+        <h2 id="titulo-listagem">Demandas Encontradas</h2>
+        <p class="error-summary" data-erro-listagem role="alert" hidden></p>
+        <p data-carregando-listagem role="status">Carregando demandas…</p>
+        <ul id="lista-demandas"></ul>
+        <p
+          class="sr-only"
+          data-anuncio-listagem
+          role="status"
+          aria-live="polite"
+        ></p>
+      </section>
     </main>
-
-</body>
+    <noscript
+      ><p class="container">
+        Ative o JavaScript para consultar e filtrar as demandas.
+      </p></noscript
+    >
+  </body>
 </html>
