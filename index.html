@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fullmetal</title>
+    <link rel="icon" href="assets/fullmetal-symbol.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Fullmetal</h1>
+      <p>Se o painel não abrir automaticamente, use o link abaixo.</p>
+      <a
+        class="btn btn-primary"
+        id="abrir-painel"
+        href="painel-de-demandas.html"
+        >Abrir painel</a
+      >
+      <noscript
+        ><p>
+          Ative o JavaScript para utilizar o sistema de demandas.
+        </p></noscript
+      >
+    </main>
+    <script>
+      (() => {
+        const paginas = {
+          solicitante: "painel-de-demandas.html",
+          triagem: "triagem.html",
+          responsavel: "responsavel.html",
+        };
+        let destino = paginas.solicitante;
+        const emDesenvolvimento =
+          location.protocol === "file:" ||
+          ["localhost", "127.0.0.1"].includes(location.hostname);
+        // Reutilizo a escolha local existente, sem criar usuário ou simular autenticação.
+        if (emDesenvolvimento) {
+          try {
+            const perfil = localStorage.getItem("fullmetal-dev-perfil");
+            if (Object.prototype.hasOwnProperty.call(paginas, perfil))
+              destino = paginas[perfil];
+          } catch {
+            // Mesmo com o armazenamento bloqueado, a entrada padrão continua disponível.
+          }
+        }
+        document.getElementById("abrir-painel").href = destino;
+        // Substituo a entrada no histórico para o botão Voltar não criar um ciclo de redirecionamento.
+        location.replace(destino);
+      })();
+    </script>
+  </body>
+</html>

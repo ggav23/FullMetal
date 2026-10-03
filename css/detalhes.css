@@ -2,13 +2,11 @@
    Tela de Detalhes da Demanda
    ======================================== */
 
-
 /* Página */
 
 .details-page {
   padding-block: 40px 64px;
 }
-
 
 /* ========================================
    Layout principal
@@ -32,7 +30,6 @@
   align-items: start;
 }
 
-
 /* ========================================
    Cabeçalho da demanda
    ======================================== */
@@ -55,7 +52,6 @@
   align-items: center;
 }
 
-
 .demand-id-row {
   grid-area: id;
 
@@ -70,21 +66,18 @@
   font-size: 0.85rem;
 }
 
-
 #demanda-id {
   color: var(--fg);
   font-family: var(--font-mono);
 }
 
-
 .copy-button {
-  min-height: auto;
+  min-height: var(--touch-target);
 
   padding: 4px 10px;
 
   font-size: 0.8rem;
 }
-
 
 .demand-status-row {
   grid-area: status;
@@ -101,7 +94,6 @@
   font-size: 0.85rem;
 }
 
-
 .demand-heading h1 {
   grid-area: title;
 
@@ -109,7 +101,6 @@
 
   font-size: clamp(1.7rem, 3vw, 2.3rem);
 }
-
 
 /* ========================================
    Cards
@@ -127,7 +118,6 @@
   box-shadow: var(--shadow-sm);
 }
 
-
 .details-card > h2 {
   margin: 0 0 20px;
 
@@ -141,28 +131,23 @@
   text-transform: uppercase;
 }
 
-
 /* Posicionamento dos cards */
 
 .info-card {
   grid-area: info;
 }
 
-
 .history-card {
   grid-area: history;
 }
-
 
 .description-card {
   grid-area: description;
 }
 
-
 .actions-card {
   grid-area: actions;
 }
-
 
 /* ========================================
    Informações gerais
@@ -171,14 +156,12 @@
 .info-grid {
   display: grid;
 
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 
   gap: 24px 32px;
 
   margin: 0;
 }
-
 
 .info-item dt {
   margin-bottom: 4px;
@@ -193,7 +176,6 @@
   text-transform: uppercase;
 }
 
-
 .info-item dd {
   margin: 0;
 
@@ -201,7 +183,6 @@
 
   font-weight: 500;
 }
-
 
 /* ========================================
    Histórico
@@ -215,13 +196,11 @@
   list-style: none;
 }
 
-
 .history-list li {
   position: relative;
 
   padding-left: 24px;
 }
-
 
 .history-list li::before {
   content: "";
@@ -239,13 +218,11 @@
   background-color: var(--accent);
 }
 
-
 .history-title {
   margin: 0 0 4px;
 
   font-weight: 600;
 }
-
 
 .history-meta {
   margin: 0;
@@ -254,7 +231,6 @@
 
   font-size: 0.82rem;
 }
-
 
 /* ========================================
    Descrição
@@ -266,7 +242,6 @@
   line-height: 1.7;
 }
 
-
 /* ========================================
    Área de triagem
    ======================================== */
@@ -275,19 +250,17 @@
   margin-bottom: 16px;
 }
 
-
 .triage-form .action-group {
   margin-top: 8px;
 }
-
 
 /* ========================================
    Responsividade
    ======================================== */
 
 @media (max-width: 800px) {
-
   .demand-details {
+    margin-top: 1.5rem;
     grid-template-columns: 1fr;
 
     grid-template-areas:
@@ -297,16 +270,12 @@
       "actions"
       "history";
   }
-
 }
 
-
 @media (max-width: 580px) {
-
   .details-page {
     padding-block: 24px 40px;
   }
-
 
   .demand-heading {
     grid-template-columns: 1fr;
@@ -319,16 +288,13 @@
     gap: 10px;
   }
 
-
   .info-grid {
     grid-template-columns: 1fr;
 
     gap: 18px;
   }
 
-
   .details-card {
     padding: 18px;
   }
-
 }

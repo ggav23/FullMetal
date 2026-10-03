@@ -102,12 +102,16 @@
     });
   }
 
-  function selecionarDemanda(id, moverFoco = true) {
+  function selecionarDemanda(id, moverFoco = true, abrirAba = true) {
     const demanda = demandas.find((item) => String(item.id) === String(id));
     if (!demanda) return false;
 
     selecionada = String(demanda.id);
-    if (abas.length && document.getElementById("painel-fila").hidden)
+    if (
+      abrirAba &&
+      abas.length &&
+      document.getElementById("painel-fila").hidden
+    )
       mudarAba(abas[0]);
     for (const campo of detalhe.querySelectorAll("[data-campo]")) {
       const chave = campo.dataset.campo;
@@ -116,7 +120,15 @@
           ? `Demanda ${texto(demanda.id)}`
           : chave === "dataCriacao"
             ? formatarData(demanda[chave])
-            : texto(demanda[chave]);
+            : chave === "prioridade"
+              ? FullmetalCatalogos.nomePrioridade(demanda.prioridade)
+              : chave === "categoria"
+                ? FullmetalCatalogos.nomeCategoria(demanda[chave])
+                : chave === "unidade"
+                  ? demanda.unidade
+                    ? FullmetalCatalogos.nomeUnidade(demanda.unidade)
+                    : "Aguardando encaminhamento"
+                  : texto(demanda[chave]);
     }
     const status = criarStatus(demanda.status);
     detalhe.querySelector("[data-status]").replaceWith(status);
@@ -185,10 +197,12 @@
 
   function renderizarFila() {
     fila.replaceChildren();
-    // A fila de triagem só mostra pendências; a aba de auditoria recebe a coleção inteira.
+    // Após encaminhar, a demanda sai da triagem, mas continua pendente até o início do atendimento.
     const base =
       perfil === "triagem"
-        ? demandas.filter((item) => normalizar(item.status) === "pendente")
+        ? demandas.filter(
+            (item) => normalizar(item.status) === "pendente" && !item.unidade,
+          )
         : demandas;
     const itens = FullmetalFiltros.aplicar(base, {
       termo: buscaFila.value,
@@ -264,7 +278,14 @@
         } else if (chave === "status") {
           celula.appendChild(criarStatus(demanda.status));
         } else {
-          celula.textContent = texto(demanda[chave]);
+          celula.textContent =
+            chave === "categoria"
+              ? FullmetalCatalogos.nomeCategoria(demanda[chave])
+              : chave === "unidade"
+                ? demanda.unidade
+                  ? FullmetalCatalogos.nomeUnidade(demanda.unidade)
+                  : "Aguardando encaminhamento"
+                : texto(demanda[chave]);
         }
         linha.appendChild(celula);
       }
@@ -324,25 +345,29 @@
       return false;
     }
     erro.hidden = true;
-    demandas = dados.demandas.map((item) => ({ ...item }));
+    const usuario = FullmetalPerfis.obterUsuarioAtual();
+    demandas =
+      usuario?.perfil === perfil
+        ? FullmetalVisibilidade.aplicar(dados.demandas, usuario).map(
+            (item) => ({ ...item }),
+          )
+        : [];
     if (perfil === "responsavel") {
       const unidade =
-        typeof dados.unidade === "string" ? dados.unidade.trim() : "";
+        typeof usuario?.unidade === "string" ? usuario.unidade.trim() : "";
       // Sem contexto de unidade, mantenho a fila vazia em vez de exibir demandas de outros setores.
       if (!unidade) demandas = [];
-      tela.querySelector("[data-unidade]").textContent =
-        unidade || "Unidade não informada";
-      tela.querySelector("[data-resumo-unidade]").textContent = unidade
-        ? `${demandas.length} demandas atribuídas à unidade.`
-        : "Consulte as demandas atribuídas à sua unidade.";
     }
     habilitarFiltros(
-      perfil !== "responsavel" ||
-        Boolean(typeof dados.unidade === "string" && dados.unidade.trim()),
+      usuario?.perfil === perfil &&
+        (perfil !== "responsavel" || Boolean(usuario.unidade)),
     );
     renderizarFila();
     renderizarAuditoria();
-    if (!selecionada || !selecionarDemanda(selecionada, false)) limparDetalhe();
+    const aberto = tela.dataset.detalheAberto;
+    if (!selecionada || !selecionarDemanda(selecionada, false, false))
+      limparDetalhe();
+    else tela.dataset.detalheAberto = aberto;
     return true;
   }
 

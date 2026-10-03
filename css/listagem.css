@@ -2,27 +2,29 @@
    Painel de Demandas - Estilos da Listagem e Filtros
    ========================================================================== */
 
-:root {
-  --color-bg-card: #ffffff;
-  --color-border-card: #e2e8f0;
-  --color-text-main: #1e293b;
-  --color-text-muted: #64748b;
-  
+.listagem-page {
+  --color-bg-card: var(--surface);
+  --color-border-card: var(--border);
+  --color-text-main: var(--fg);
+  --color-text-muted: var(--muted);
+
   /* Status Badges - Diferenciação visual clara de estados */
-  --badge-pendente-bg: #fef3c7;
-  --badge-pendente-text: #92400e;
-  --badge-pendente-border: #fcd34d;
+  --badge-pendente-bg: var(--status-pendente-bg);
+  --badge-pendente-text: var(--status-pendente-fg);
+  --badge-pendente-border: var(--status-pendente-border);
 
-  --badge-andamento-bg: #dbeafe;
-  --badge-andamento-text: #1e40af;
-  --badge-andamento-border: #93c5fd;
+  --badge-andamento-bg: var(--status-atendimento-bg);
+  --badge-andamento-text: var(--status-atendimento-fg);
+  --badge-andamento-border: var(--status-atendimento-border);
 
-  --badge-concluido-bg: #dcfce7;
-  --badge-concluido-text: #166534;
-  --badge-concluido-border: #86efac;
+  --badge-concluido-bg: var(--status-concluida-bg);
+  --badge-concluido-text: var(--status-concluida-fg);
+  --badge-concluido-border: var(--status-concluida-border);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -72,10 +74,12 @@ search select {
   width: 100%;
   max-width: 100%;
   padding: 0.625rem;
-  border: 1px solid var(--color-border-card);
+  border: 1px solid var(--control-border);
   border-radius: 6px;
   font-size: 0.95rem;
-  background-color: #ffffff;
+  background-color: var(--surface);
+  color: var(--fg);
+  min-height: var(--touch-target);
 }
 
 /* --- Listagem e Cartões (Garante ausência de overflow em 320px) --- */
@@ -106,6 +110,8 @@ search select {
   gap: 1rem;
   width: 100%;
   max-width: 100%;
+  /* Preencho a altura da linha do grid sem fixar uma medida ou cortar conteúdo. */
+  height: 100%;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   overflow-wrap: anywhere; /* Impede quebra de layout em ecrãs estreitos */
 }
@@ -147,40 +153,76 @@ search select {
 }
 
 .card-footer {
+  /* Alinho data e ação na base mesmo quando os títulos ocupam alturas diferentes. */
+  margin-top: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem;
   padding-top: 0.75rem;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--border);
 }
 
 /* --- Badges de Status --- */
-.status-badge {
+.listagem-page .status-badge {
   display: inline-block;
   padding: 0.25rem 0.5rem;
   border-radius: 9999px;
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  border: 1px solid transparent;
-  white-space: nowrap;
+  border-style: solid;
+  border-width: 1px;
+  white-space: normal;
 }
 
-.status-badge[data-status="pendente"] {
+.listagem-page .status-badge.status-pendente {
   background-color: var(--badge-pendente-bg);
   color: var(--badge-pendente-text);
   border-color: var(--badge-pendente-border);
 }
 
-.status-badge[data-status="andamento"] {
+.listagem-page {
+  padding-block: 2rem;
+}
+.listagem-page h1 {
+  margin-bottom: 1rem;
+}
+.listagem-page [data-nova-demanda] {
+  margin-bottom: 1.5rem;
+}
+.listagem-page #titulo-listagem {
+  margin-bottom: 1rem;
+}
+.card-footer time {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.list-filter-field {
+  min-width: 0;
+}
+.list-filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.listagem-page > header {
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 599px) {
+  .list-filter-actions .btn {
+    width: 100%;
+  }
+}
+
+.listagem-page .status-badge.status-em-atendimento {
   background-color: var(--badge-andamento-bg);
   color: var(--badge-andamento-text);
   border-color: var(--badge-andamento-border);
 }
 
-.status-badge[data-status="concluido"] {
+.listagem-page .status-badge.status-concluida {
   background-color: var(--badge-concluido-bg);
   color: var(--badge-concluido-text);
   border-color: var(--badge-concluido-border);

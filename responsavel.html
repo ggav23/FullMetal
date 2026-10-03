@@ -6,10 +6,18 @@
     <title>Atendimento da unidade | Fullmetal</title>
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/atendimento.css" />
+    <link rel="stylesheet" href="css/acoes.css" />
     <script src="js/header.js" defer></script>
+    <script src="js/catalogos.js" defer></script>
     <script src="js/demandas.js" defer></script>
+    <script src="js/visibilidade.js" defer></script>
+    <script src="js/dados.js" defer></script>
+    <script src="js/interface.js" defer></script>
     <script src="js/filtros.js" defer></script>
     <script src="js/atendimento.js" defer></script>
+    <script src="js/acoes.js" defer></script>
+    <script src="js/fluxo.js" defer></script>
+    <script src="js/contexto-dev.js" defer></script>
   </head>
   <body data-perfil-pagina="responsavel">
     <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
@@ -52,15 +60,7 @@
       tabindex="-1"
       data-tela-atendimento
     >
-      <header class="unit-banner">
-        <div>
-          <h1>Painel da Unidade</h1>
-          <p data-unidade>Unidade não informada</p>
-        </div>
-        <p data-resumo-unidade>
-          Consulte as demandas atribuídas à sua unidade.
-        </p>
-      </header>
+      <h1 class="sr-only">Atendimento da unidade</h1>
       <p
         class="error-summary atendimento-error"
         role="alert"
@@ -160,6 +160,10 @@
                       <dt>Data de criação</dt>
                       <dd data-campo="dataCriacao"></dd>
                     </div>
+                    <div>
+                      <dt>Prioridade</dt>
+                      <dd data-campo="prioridade"></dd>
+                    </div>
                   </dl>
                 </section>
                 <section class="work-card" aria-labelledby="titulo-descricao">
@@ -187,6 +191,14 @@
                   <option value="alta">Alta</option>
                 </select>
                 <div class="work-actions">
+                  <button
+                    class="btn btn-secondary"
+                    type="button"
+                    disabled
+                    data-acao="prioridade"
+                  >
+                    Salvar prioridade
+                  </button>
                   <button
                     class="btn btn-primary"
                     type="button"

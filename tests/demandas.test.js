@@ -5,6 +5,10 @@ const path = require("node:path");
 const vm = require("node:vm");
 const ambiente = { crypto: require("node:crypto").webcrypto };
 vm.runInNewContext(
+  fs.readFileSync(path.join(__dirname, "..", "js", "catalogos.js"), "utf8"),
+  ambiente,
+);
+vm.runInNewContext(
   fs.readFileSync(path.join(__dirname, "..", "js", "demandas.js"), "utf8"),
   ambiente,
 );
@@ -12,7 +16,7 @@ const api = ambiente.FullmetalDemandas;
 const campos = {
   titulo: "  Ajustar iluminação  ",
   descricao: "Verificar a iluminação da sala.",
-  categoria: "categoria-1",
+  categoria: "manutencao",
   localizacao: "Sala A",
 };
 const usuario = {
@@ -75,10 +79,10 @@ test("exige identidade de solicitante e os quatro campos preenchidos", () => {
   for (const campo of Object.keys(campos)) {
     assert.throws(
       () => api.criar({ ...campos, [campo]: "  " }, usuario),
-      /Informe título/,
+      /título|descreva|categoria|local/,
     );
   }
-  assert.throws(() => api.criar(null, usuario), /Informe título/);
+  assert.throws(() => api.criar(null, usuario), /título/);
 });
 
 test("expõe somente os quatro status canônicos e usa alternativa sem randomUUID", () => {
@@ -90,6 +94,10 @@ test("expõe somente os quatro status canônicos e usa alternativa sem randomUUI
   ]);
   assert.equal(Object.isFrozen(api.STATUS), true);
   const semCrypto = {};
+  vm.runInNewContext(
+    fs.readFileSync(path.join(__dirname, "..", "js", "catalogos.js"), "utf8"),
+    semCrypto,
+  );
   vm.runInNewContext(
     fs.readFileSync(path.join(__dirname, "..", "js", "demandas.js"), "utf8"),
     semCrypto,
