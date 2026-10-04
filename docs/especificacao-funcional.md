@@ -87,7 +87,7 @@ Antes do encaminhamento, a unidade fica vazia. A demanda continua Pendente até 
 | VAL-001 | Título da Demanda      | Não pode ser vazio e deve ter entre 5 e 100 caracteres. | "O título deve conter entre 5 e 100 caracteres."         |
 | VAL-002 | Descrição              | Preenchimento obrigatório com até 500 caracteres.       | "Por favor, descreva o problema com até 500 caracteres." |
 | VAL-003 | Categoria              | Seleção obrigatória de um item do dropdown.             | "Selecione uma categoria válida para a demanda."         |
-| VAL-004 | Localização            | Não pode conter apenas espaços em branco.               | "Informe o local ou sala onde ocorreu a demanda."        |
+| VAL-004 | Localização            | Preenchimento obrigatório com até 100 caracteres, sem aceitar apenas espaços em branco. | "Informe o local ou sala onde ocorreu a demanda." / "A localização deve conter até 100 caracteres." |
 
 ---
 

@@ -303,14 +303,6 @@ textarea {
   height: 28px;
 }
 
-.brand-tag {
-  padding: 2px 8px;
-  border-radius: var(--radius-pill);
-  background-color: rgb(255 255 255 / 15%);
-  color: var(--header-muted);
-  font-size: 0.75rem;
-}
-
 .btn-contrast-toggle,
 .profile-indicator {
   display: inline-flex;
@@ -989,10 +981,6 @@ body.high-contrast {
     gap: 6px;
     font-family: var(--font-body);
     font-size: 0.95rem;
-  }
-
-  .brand-tag {
-    display: none;
   }
 
   .topbar-actions {
