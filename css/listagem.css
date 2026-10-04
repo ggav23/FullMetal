@@ -195,6 +195,31 @@ search select {
 .listagem-page #titulo-listagem {
   margin-bottom: 1rem;
 }
+.list-results-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.listagem-page .list-results-header #titulo-listagem {
+  margin: 0;
+}
+.list-order-field {
+  min-width: 0;
+  max-width: 100%;
+}
+.list-order-field .form-control {
+  width: auto;
+  max-width: 100%;
+}
+@media (max-width: 599px) {
+  .list-order-field,
+  .list-order-field .form-control {
+    width: 100%;
+  }
+}
 .card-footer time {
   color: var(--muted);
   font-size: 0.875rem;

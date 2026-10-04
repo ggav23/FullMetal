@@ -9,6 +9,7 @@ const PainelDemandas = {
     this.inputBusca = document.getElementById("termo-busca");
     this.selectDepartamento = document.getElementById("filtro-departamento");
     this.selectStatus = document.getElementById("Status");
+    this.ordenacao = document.getElementById("ordem-demandas");
     this.limpar = document.querySelector("[data-limpar-listagem]");
     this.erro = document.querySelector("[data-erro-listagem]");
     this.anuncio = document.querySelector("[data-anuncio-listagem]");
@@ -40,6 +41,7 @@ const PainelDemandas = {
   },
   habilitar(valor) {
     for (const campo of this.formProcura.elements) campo.disabled = !valor;
+    this.ordenacao.disabled = !valor;
   },
   registarEventos() {
     this.formProcura.addEventListener("submit", (evento) => {
@@ -49,6 +51,7 @@ const PainelDemandas = {
     this.inputBusca.addEventListener("input", () => this.filtrar());
     this.selectDepartamento.addEventListener("change", () => this.filtrar());
     this.selectStatus.addEventListener("change", () => this.filtrar());
+    this.ordenacao.addEventListener("change", () => this.filtrar());
     this.limpar.addEventListener("click", () => {
       this.formProcura.reset();
       this.filtrar();
@@ -76,7 +79,9 @@ const PainelDemandas = {
       !this.inputBusca.value &&
       !this.selectDepartamento.value &&
       !this.selectStatus.value;
-    this.renderizarListagem(filtradas);
+    this.renderizarListagem(
+      FullmetalFiltros.ordenar(filtradas, this.ordenacao.value),
+    );
     this.anuncio.textContent = `${filtradas.length} demandas encontradas.`;
   },
   renderizarListagem(dados) {
@@ -109,12 +114,7 @@ const PainelDemandas = {
       for (const [nome, valor] of [
         ["Categoria", FullmetalCatalogos.nomeCategoria(demanda.categoria)],
         ["Localização", demanda.localizacao],
-        [
-          "Unidade",
-          demanda.unidade
-            ? FullmetalCatalogos.nomeUnidade(demanda.unidade)
-            : "Aguardando encaminhamento",
-        ],
+        ["Unidade", FullmetalUI.unidade(demanda)],
       ]) {
         const p = criar("p");
         p.append(

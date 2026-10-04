@@ -121,7 +121,16 @@
 
       <!-- listagem -->
       <section aria-labelledby="titulo-listagem">
-        <h2 id="titulo-listagem">Demandas Encontradas</h2>
+        <div class="list-results-header">
+          <h2 id="titulo-listagem">Demandas Encontradas</h2>
+          <div class="list-order-field">
+            <label class="form-label" for="ordem-demandas">Ordenar por</label>
+            <select class="form-control" id="ordem-demandas" disabled>
+              <option value="recentes">Mais recentes primeiro</option>
+              <option value="antigas">Mais antigas primeiro</option>
+            </select>
+          </div>
+        </div>
         <p class="error-summary" data-erro-listagem role="alert" hidden></p>
         <p data-carregando-listagem role="status">Carregando demandas…</p>
         <ul id="lista-demandas"></ul>

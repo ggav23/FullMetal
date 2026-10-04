@@ -33,6 +33,14 @@
           timeStyle: "short",
         }).format(data);
   }
+  function unidade(demanda) {
+    if (demanda.unidade) return FullmetalCatalogos.nomeUnidade(demanda.unidade);
+    // Diferencio canceladas sem unidade das demandas que ainda aguardam triagem.
+    if (demanda.status === "Cancelada") return "Não encaminhada";
+    return demanda.status === "Pendente"
+      ? "Aguardando encaminhamento"
+      : "Não informada";
+  }
   function historico(lista, registros, classes = {}) {
     lista.replaceChildren();
     for (const registro of Array.isArray(registros) ? registros : []) {
@@ -53,6 +61,7 @@
     elemento,
     status,
     data,
+    unidade,
     historico,
   });
 })();

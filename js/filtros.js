@@ -22,5 +22,21 @@
     });
   }
 
-  globalThis.FullmetalFiltros = Object.freeze({ aplicar });
+  function ordenar(demandasPermitidas, ordem = "recentes") {
+    const data = (demanda) =>
+      typeof demanda.dataCriacao === "string"
+        ? Date.parse(demanda.dataCriacao)
+        : NaN;
+    // Ordeno uma cópia para manter a lista original.
+    return [...demandasPermitidas].sort((a, b) => {
+      const primeira = data(a);
+      const segunda = data(b);
+      // Deixo os registros sem data válida no fim.
+      if (Number.isNaN(primeira)) return Number.isNaN(segunda) ? 0 : 1;
+      if (Number.isNaN(segunda)) return -1;
+      return ordem === "antigas" ? primeira - segunda : segunda - primeira;
+    });
+  }
+
+  globalThis.FullmetalFiltros = Object.freeze({ aplicar, ordenar });
 })();

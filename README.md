@@ -8,7 +8,22 @@ Projeto desenvolvido para a disciplina de **Projeto Aplicado: Programação Web*
 
 O objetivo do MVP é disponibilizar uma interface web responsiva e acessível que permita o cadastro, a consulta, a listagem e a visualização de demandas.
 
-Nesta etapa, o projeto será desenvolvido apenas no Front-end, utilizando dados simulados e sem implementação de Back-end real.
+O MVP usa apenas Front-end, com exemplos em JSON e dados salvos no localStorage.
+
+## Como executar
+
+1. Abra `index.html` no navegador.
+2. Troque o perfil pelo cabeçalho. No perfil Responsável, selecione também a área de atendimento.
+
+O sistema funciona por arquivo local ou HTTP em `localhost` e `127.0.0.1`. A troca de perfis serve para desenvolvimento, sem login real, e não fica habilitada em sites publicados.
+
+## Dados de exemplo
+
+1. Abra `dados-de-teste.html`.
+2. Selecione `dados/demandas-exemplo.json` e clique em **Importar arquivo selecionado**. Por HTTP local, também pode usar **Importar exemplos do projeto**.
+3. Clique em **Voltar ao sistema**.
+
+Use o mesmo navegador e endereço para importar e abrir o sistema. Importar novamente não duplica nem substitui registros. As alterações ficam no localStorage, sem mudar o JSON. Limpar os dados do navegador pode apagar os registros locais.
 
 ## Tecnologias
 
@@ -53,6 +68,9 @@ Para manter o desenvolvimento organizado e permitir revisão por pares, a equipe
 Exemplo de início de uma tarefa:
 
 ```bash
-git checkout main
-git pull
-git checkout -b feat/detalhes-demanda
+git switch main
+git pull --ff-only
+git switch -c feat/detalhes-demanda
+```
+
+A revisão manual de acessibilidade ainda está pendente.
