@@ -27,6 +27,8 @@
       erros.categoria = "Selecione uma categoria válida para a demanda.";
     if (!valores.localizacao)
       erros.localizacao = "Informe o local ou sala onde ocorreu a demanda.";
+    else if (valores.localizacao.length > 100)
+      erros.localizacao = "A localização deve conter até 100 caracteres.";
     return { valores, erros };
   }
 

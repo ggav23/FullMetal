@@ -49,7 +49,6 @@
         !/^TESTE-[A-Z0-9-]{1,40}$/.test(item.id) ||
         ids.has(item.id) ||
         Object.keys(erros).length ||
-        valores.localizacao.length > 200 ||
         !["atual", "outro"].includes(item.autor) ||
         !Object.values(FullmetalDemandas.STATUS).includes(item.status) ||
         !(
