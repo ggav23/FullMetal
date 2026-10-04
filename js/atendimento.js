@@ -221,7 +221,7 @@
       );
       const meta = criar("span", undefined, "queue-item-meta");
       meta.append(
-        criar("span", demanda.localizacao),
+        criar("span", demanda.localizacao, "queue-location"),
         criarStatus(demanda.status),
       );
       botao.appendChild(meta);
@@ -275,6 +275,11 @@
           celula.appendChild(botao);
         } else if (chave === "status") {
           celula.appendChild(criarStatus(demanda.status));
+        } else if (chave === "localizacao") {
+          // Resumo textos antigos muito longos na tabela; o detalhe mantém o conteúdo completo.
+          const local = criar("span", demanda.localizacao, "audit-location");
+          local.title = texto(demanda.localizacao);
+          celula.appendChild(local);
         } else {
           celula.textContent =
             chave === "categoria"

@@ -43,6 +43,7 @@
     ["localhost", "127.0.0.1"].includes(window.location.hostname);
   const chavePerfil = "fullmetal-dev-perfil";
   const chaveUsuario = "fullmetal-dev-usuario";
+  const solicitantes = Object.freeze({ madeira: "Madeira", ferro: "Ferro" });
   const nomes = Object.freeze({
     solicitante: "Solicitante",
     triagem: "Triagem",
@@ -86,7 +87,7 @@
   let usuarioDev = null;
 
   if (emDesenvolvimento) {
-    // Mantenho a mesma identidade ao trocar de perfil para testar "minhas demandas".
+    // Preservo o ID local anterior como Madeira; Ferro usa outro ID, sem mudar as demandas salvas.
     // A unidade fica vazia até ser informada explicitamente; não invento um setor.
     try {
       const salvo = JSON.parse(localStorage.getItem(chaveUsuario));
@@ -98,6 +99,12 @@
       ) {
         usuarioDev = {
           id: salvo.id,
+          solicitante: Object.prototype.hasOwnProperty.call(
+            solicitantes,
+            salvo.solicitante,
+          )
+            ? salvo.solicitante
+            : "madeira",
           unidade:
             typeof salvo.unidade === "string" && salvo.unidade.trim()
               ? salvo.unidade.trim()
@@ -111,7 +118,7 @@
       const id =
         globalThis.crypto?.randomUUID?.() ||
         `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
-      usuarioDev = { id: `dev-${id}`, unidade: null };
+      usuarioDev = { id: `dev-${id}`, unidade: null, solicitante: "madeira" };
     }
     salvarUsuarioDev();
     perfilAtual = "solicitante";
@@ -147,7 +154,11 @@
     return perfilAtual && usuarioDev
       ? {
           ...usuarioDev,
-          nome: null,
+          id:
+            usuarioDev.solicitante === "ferro"
+              ? `${usuarioDev.id}-ferro`
+              : usuarioDev.id,
+          nome: solicitantes[usuarioDev.solicitante],
           perfil: perfilAtual,
           origem: "desenvolvimento",
         }
@@ -172,15 +183,25 @@
   function atualizarPerfil() {
     if (valor) valor.textContent = nomes[perfilAtual] || "A definir";
     if (seletor) seletor.value = perfilAtual || "";
-    if (rotuloPerfil)
+    if (rotuloPerfil) {
       rotuloPerfil.textContent = nomes[perfilAtual] || "A definir";
+      if (perfilAtual === "solicitante") {
+        const nomeUsuario = document.createElement("span");
+        nomeUsuario.className = "profile-user-name";
+        nomeUsuario.textContent = solicitantes[usuarioDev.solicitante];
+        rotuloPerfil.appendChild(nomeUsuario);
+      }
+    }
     if (botaoPerfil)
       botaoPerfil.setAttribute(
         "aria-label",
-        `Perfil: ${nomes[perfilAtual]}. Alterar perfil local de desenvolvimento`,
+        `Perfil: ${nomes[perfilAtual]}${perfilAtual === "solicitante" ? `, ${solicitantes[usuarioDev.solicitante]}` : ""}. Alterar perfil local de desenvolvimento`,
       );
     for (const opcao of opcoesPerfil) {
-      const ativa = opcao.dataset.perfil === perfilAtual;
+      const ativa =
+        opcao.dataset.perfil === perfilAtual &&
+        (!opcao.dataset.solicitante ||
+          opcao.dataset.solicitante === usuarioDev?.solicitante);
       opcao.classList.toggle("active", ativa);
       opcao.setAttribute("aria-checked", String(ativa));
     }
@@ -250,8 +271,10 @@
       opcao.textContent = nome;
       seletor.appendChild(opcao);
     }
-    function trocarPerfil(perfil) {
+    function trocarPerfil(perfil, solicitante = usuarioDev.solicitante) {
       if (!Object.prototype.hasOwnProperty.call(nomes, perfil)) return false;
+      if (!Object.prototype.hasOwnProperty.call(solicitantes, solicitante))
+        return false;
       const formulario = document.querySelector("#formulario-demanda");
       const temRascunho =
         formulario &&
@@ -261,7 +284,7 @@
       if (
         temRascunho &&
         !window.confirm(
-          "Há informações preenchidas na nova demanda. Deseja descartá-las e trocar de perfil?",
+          "Há informações preenchidas na nova demanda. Deseja descartá-las e trocar de perfil ou solicitante?",
         )
       ) {
         seletor.value = perfilAtual;
@@ -272,11 +295,22 @@
         // A troca pelo menu abre outra página. Salvo a escolha sem mudar o contexto
         // da tela antiga; o header do destino recupera o perfil e valida sua própria tela.
         localStorage.setItem(chavePerfil, perfil);
+        localStorage.setItem(
+          chaveUsuario,
+          JSON.stringify({ ...usuarioDev, solicitante }),
+        );
       } catch {
+        // Se a segunda gravação falhar, tento restaurar a escolha anterior antes de navegar.
+        try {
+          localStorage.setItem(chavePerfil, perfilAtual);
+          localStorage.setItem(chaveUsuario, JSON.stringify(usuarioDev));
+        } catch {
+          // Mantenho a identidade desta página e não sigo para outro contexto.
+        }
         seletor.value = perfilAtual;
         fecharMenuPerfil(true);
         window.alert(
-          "Não foi possível salvar a escolha de perfil. Verifique o armazenamento do navegador e tente novamente.",
+          "Não foi possível salvar a escolha de perfil ou solicitante. Verifique o armazenamento do navegador e tente novamente.",
         );
         return false;
       }
@@ -316,11 +350,26 @@
       triagem: "Analisa e encaminha as solicitações.",
       responsavel: "Define a prioridade e atende sua unidade.",
     };
-    for (const [perfil, nome] of Object.entries(nomes)) {
+    const escolhas = [
+      {
+        perfil: "solicitante",
+        solicitante: "madeira",
+        nome: "Solicitante — Madeira",
+      },
+      {
+        perfil: "solicitante",
+        solicitante: "ferro",
+        nome: "Solicitante — Ferro",
+      },
+      { perfil: "triagem", nome: nomes.triagem },
+      { perfil: "responsavel", nome: nomes.responsavel },
+    ];
+    for (const { perfil, solicitante, nome } of escolhas) {
       const opcao = document.createElement("button");
       opcao.type = "button";
       opcao.className = "profile-option";
       opcao.dataset.perfil = perfil;
+      if (solicitante) opcao.dataset.solicitante = solicitante;
       opcao.setAttribute("role", "menuitemradio");
       opcao.tabIndex = -1;
       const titulo = document.createElement("strong");
@@ -332,8 +381,12 @@
       lista.appendChild(opcao);
       opcoesPerfil.push(opcao);
       opcao.addEventListener("click", () => {
-        if (perfil === perfilAtual) fecharMenuPerfil(true);
-        else trocarPerfil(perfil);
+        if (
+          perfil === perfilAtual &&
+          (!solicitante || solicitante === usuarioDev.solicitante)
+        )
+          fecharMenuPerfil(true);
+        else trocarPerfil(perfil, solicitante || usuarioDev.solicitante);
       });
       opcao.addEventListener("keydown", (evento) => {
         const indice = opcoesPerfil.indexOf(opcao);
@@ -361,8 +414,9 @@
       botaoPerfil.setAttribute("aria-expanded", "true");
       (ultimo
         ? opcoesPerfil.at(-1)
-        : opcoesPerfil.find((opcao) => opcao.dataset.perfil === perfilAtual) ||
-          opcoesPerfil[0]
+        : opcoesPerfil.find(
+            (opcao) => opcao.getAttribute("aria-checked") === "true",
+          ) || opcoesPerfil[0]
       ).focus();
     }
     botaoPerfil.addEventListener("click", () =>

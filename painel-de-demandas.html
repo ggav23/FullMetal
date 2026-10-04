@@ -57,7 +57,7 @@
     </header>
 
     <main id="conteudo" class="container listagem-page" tabindex="-1">
-      <h1>Gerenciamento de Demandas</h1>
+      <h1>Minhas demandas</h1>
       <a class="btn btn-primary" href="cadastro.html" data-nova-demanda
         >Nova demanda</a
       >
@@ -82,13 +82,14 @@
 
             <!-- filtros -->
             <div class="list-filter-field">
-              <label for="filtro-departamento">Unidade responsável:</label>
+              <label for="filtro-departamento">Área de atendimento:</label>
               <select
                 class="form-control"
                 id="filtro-departamento"
                 name="unidade"
+                aria-describedby="ajuda-filtros"
               >
-                <option value="">Todas as unidades</option>
+                <option value="">Todas as áreas</option>
               </select>
             </div>
 
@@ -105,7 +106,6 @@
             </div>
 
             <div class="list-filter-actions">
-              <button class="btn btn-primary" type="submit">Aplicar</button>
               <button
                 class="btn btn-secondary"
                 type="button"
@@ -115,6 +115,10 @@
                 Limpar filtros
               </button>
             </div>
+            <p id="ajuda-filtros" class="field-helper list-filter-note">
+              A área de atendimento é a unidade que recebe a demanda. Os filtros
+              são aplicados automaticamente.
+            </p>
           </fieldset>
         </form>
       </search>
@@ -122,7 +126,7 @@
       <!-- listagem -->
       <section aria-labelledby="titulo-listagem">
         <div class="list-results-header">
-          <h2 id="titulo-listagem">Demandas Encontradas</h2>
+          <h2 id="titulo-listagem">Demandas registradas</h2>
           <div class="list-order-field">
             <label class="form-label" for="ordem-demandas">Ordenar por</label>
             <select class="form-control" id="ordem-demandas" disabled>

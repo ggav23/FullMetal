@@ -49,7 +49,6 @@
         !/^TESTE-[A-Z0-9-]{1,40}$/.test(item.id) ||
         ids.has(item.id) ||
         Object.keys(erros).length ||
-        valores.localizacao.length > 200 ||
         !["atual", "outro"].includes(item.autor) ||
         !Object.values(FullmetalDemandas.STATUS).includes(item.status) ||
         !(
@@ -96,7 +95,11 @@
         ...valores,
         status: item.status,
         solicitanteId: doUsuario ? usuario.id : `teste-outro-${usuario.id}`,
-        solicitante: doUsuario ? null : "Outro solicitante (teste)",
+        solicitante: doUsuario
+          ? typeof usuario.nome === "string" && usuario.nome.trim()
+            ? usuario.nome.trim()
+            : null
+          : "Outro solicitante (teste)",
         unidade: item.unidade,
         prioridade: item.prioridade,
         dataCriacao: item.dataCriacao,

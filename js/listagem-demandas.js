@@ -117,6 +117,10 @@ const PainelDemandas = {
         ["Unidade", FullmetalUI.unidade(demanda)],
       ]) {
         const p = criar("p");
+        if (nome === "Localização") {
+          p.className = "card-location";
+          p.title = FullmetalUI.texto(valor);
+        }
         p.append(
           criar("strong", `${nome}: `),
           document.createTextNode(FullmetalUI.texto(valor)),
