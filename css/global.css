@@ -41,9 +41,9 @@
   --status-concluida-fg: #166534;
   --status-concluida-bg: #dcfce7;
   --status-concluida-border: #86efac;
-  --status-cancelada-fg: #4b5563;
-  --status-cancelada-bg: #f3f4f6;
-  --status-cancelada-border: #d1d5db;
+  --status-cancelada-fg: #374151;
+  --status-cancelada-bg: #e5e7eb;
+  --status-cancelada-border: #6b7280;
 
   /* Tipografia */
   --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
@@ -767,6 +767,20 @@ textarea.form-control {
   border-color: var(--status-cancelada-border);
   background-color: var(--status-cancelada-bg);
   color: var(--status-cancelada-fg);
+  border-width: 2px;
+  border-style: dashed;
+}
+
+/* Destaco o cancelamento no histórico sem usar vermelho de erro. */
+.history-list .history-cancelada {
+  padding: 10px 12px;
+  border-inline-start: 3px solid var(--status-cancelada-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--status-cancelada-bg);
+  color: var(--status-cancelada-fg);
+}
+.history-list .history-cancelada::before {
+  display: none;
 }
 
 .filter-chip {

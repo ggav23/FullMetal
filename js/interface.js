@@ -46,6 +46,8 @@
     for (const registro of Array.isArray(registros) ? registros : []) {
       if (!registro || typeof registro !== "object") continue;
       const item = elemento("li");
+      if (registro.descricao === "Demanda cancelada.")
+        item.className = "history-cancelada";
       const descricao = elemento("p", registro.descricao, classes.titulo);
       const horario = elemento("time", data(registro.data), classes.meta);
       if (registro.data && !Number.isNaN(new Date(registro.data).getTime()))

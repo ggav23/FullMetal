@@ -273,6 +273,8 @@
 
 .audit-table {
   width: 100%;
+  /* Um texto longo não pode ocupar a largura das outras colunas. */
+  table-layout: fixed;
   border-collapse: collapse;
   font-size: 0.88rem;
 }
@@ -288,6 +290,18 @@
 .audit-table th {
   background-color: var(--surface-subtle);
   color: var(--muted);
+}
+
+.audit-location,
+.queue-location {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-height: 1.5;
+  max-height: 4.5em;
+  overflow: hidden;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .audit-open {
