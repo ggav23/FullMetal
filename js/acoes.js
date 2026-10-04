@@ -11,6 +11,29 @@
   feedback.setAttribute("aria-live", "polite");
   // Deixo o resultado fora do cartão: ele continua visível quando a ação encerra a demanda.
   card.after(feedback);
+  const erroAcao = criar("p", "", "error-summary");
+  erroAcao.id = "erro-acao";
+  erroAcao.hidden = true;
+  erroAcao.tabIndex = -1;
+  erroAcao.setAttribute("role", "alert");
+  card.append(erroAcao);
+  function limparErro() {
+    erroAcao.hidden = true;
+    erroAcao.textContent = "";
+    for (const campo of [unidade, prioridade])
+      campo?.removeAttribute("aria-invalid");
+  }
+  function mostrarErro(mensagem, campo) {
+    erroAcao.textContent = mensagem;
+    erroAcao.hidden = false;
+    campo?.setAttribute("aria-invalid", "true");
+    erroAcao.focus();
+  }
+  for (const campo of [unidade, prioridade]) {
+    if (!campo) continue;
+    campo.setAttribute("aria-describedby", erroAcao.id);
+    campo.addEventListener("change", limparErro);
+  }
   if (unidade) {
     unidade.replaceChildren(new Option("Selecione uma unidade", ""));
     for (const item of FullmetalCatalogos.unidades)
@@ -90,6 +113,8 @@
   let origem = null;
   manter.addEventListener("click", () => dialogo.close());
   dialogo.addEventListener("close", () => {
+    // Ignoro o fechamento anterior se o diálogo já foi aberto de novo.
+    if (dialogo.open) return;
     pendente = null;
     const destino =
       origem && origem.getClientRects().length
@@ -126,6 +151,7 @@
     botao.addEventListener("click", () => {
       const acao = botao.dataset.acao;
       feedback.textContent = "";
+      limparErro();
       if (["cancelar", "concluir"].includes(acao)) {
         pendente = { id: selecionada, acao };
         origem = botao;
@@ -155,7 +181,10 @@
             prioridade: prioridade?.value,
           });
         } catch (erro) {
-          feedback.textContent = erro.message;
+          mostrarErro(
+            erro.message,
+            acao === "encaminhar" ? unidade : prioridade,
+          );
         }
         if (!botao.getClientRects().length)
           (
@@ -167,12 +196,16 @@
   document.addEventListener("fullmetal:demanda-selecionada", (evento) => {
     const mudou = selecionada !== String(evento.detail.id);
     selecionada = String(evento.detail.id);
-    if (mudou) feedback.textContent = "";
+    if (mudou) {
+      feedback.textContent = "";
+      limparErro();
+    }
     atualizar();
   });
   function invalidar() {
     selecionada = null;
     feedback.textContent = "";
+    limparErro();
     card.hidden = true;
     if (dialogo.open) dialogo.close();
   }

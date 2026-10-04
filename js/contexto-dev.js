@@ -6,7 +6,7 @@
     return;
   const cabecalho = document.querySelector(".queue-header");
   if (!cabecalho) return;
-  // Escolho a unidade explicitamente, somente no teste local; não simulo autenticação real.
+  // Escolho a área explicitamente; o visual do select vem do CSS global.
   const grupo = document.createElement("div");
   grupo.className = "dev-unit-context";
   const rotulo = document.createElement("label");
@@ -15,17 +15,9 @@
   const seletor = document.createElement("select");
   seletor.id = "unidade-dev";
   seletor.className = "form-control";
-  const vazio = document.createElement("option");
-  vazio.value = "";
-  vazio.textContent = "Selecione a área";
-  seletor.appendChild(vazio);
-  for (const unidade of FullmetalCatalogos.unidades) {
-    const opcao = document.createElement("option");
-    opcao.value = unidade.id;
-    opcao.textContent = unidade.nome;
-    seletor.appendChild(opcao);
-  }
-  // Identifico a área junto da fila, sem criar uma faixa separada para o seletor.
+  seletor.add(new Option("Selecione a área", ""));
+  for (const unidade of FullmetalCatalogos.unidades)
+    seletor.add(new Option(unidade.nome, unidade.id));
   grupo.append(rotulo, seletor);
   cabecalho.querySelector("h2").after(grupo);
   const atualizar = () => {
