@@ -26,9 +26,7 @@
         ),
         "demanda-localizacao": demanda.localizacao,
         "demanda-solicitante": demanda.solicitante,
-        "demanda-unidade": demanda.unidade
-          ? FullmetalCatalogos.nomeUnidade(demanda.unidade)
-          : "Aguardando encaminhamento",
+        "demanda-unidade": FullmetalUI.unidade(demanda),
         "demanda-descricao": demanda.descricao,
         "demanda-criacao": FullmetalUI.data(demanda.dataCriacao),
         "demanda-prioridade": FullmetalCatalogos.nomePrioridade(

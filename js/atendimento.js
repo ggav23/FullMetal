@@ -125,9 +125,7 @@
               : chave === "categoria"
                 ? FullmetalCatalogos.nomeCategoria(demanda[chave])
                 : chave === "unidade"
-                  ? demanda.unidade
-                    ? FullmetalCatalogos.nomeUnidade(demanda.unidade)
-                    : "Aguardando encaminhamento"
+                  ? FullmetalUI.unidade(demanda)
                   : texto(demanda[chave]);
     }
     const status = criarStatus(demanda.status);
@@ -282,9 +280,7 @@
             chave === "categoria"
               ? FullmetalCatalogos.nomeCategoria(demanda[chave])
               : chave === "unidade"
-                ? demanda.unidade
-                  ? FullmetalCatalogos.nomeUnidade(demanda.unidade)
-                  : "Aguardando encaminhamento"
+                ? FullmetalUI.unidade(demanda)
                 : texto(demanda[chave]);
         }
         linha.appendChild(celula);
