@@ -553,16 +553,83 @@ textarea {
   opacity: 1;
 }
 
-/* Personalizo a seta e o acabamento sem remover o comportamento nativo dos campos. */
+/* Padronizo os seletores sem recriar as opções e o teclado em JavaScript. */
 select.form-control,
 select.select-filter {
   appearance: none;
-  padding-right: 38px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 10px 38px 10px 14px;
+  border-radius: var(--radius-md);
+  background-color: var(--surface-subtle);
+  color: var(--fg);
+  font-size: 0.88rem;
+  font-weight: 600;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235a6474' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 16px;
   cursor: pointer;
+}
+select.form-control option,
+select.select-filter option {
+  background-color: var(--surface);
+  color: var(--fg);
+}
+select.form-control[aria-invalid="true"],
+select.select-filter[aria-invalid="true"] {
+  color: var(--fg);
+}
+/* Nos navegadores compatíveis, estilizo também a lista aberta. Nos demais, ela segue nativa. */
+@supports (appearance: base-select) {
+  select.form-control,
+  select.select-filter,
+  select.form-control::picker(select),
+  select.select-filter::picker(select) {
+    appearance: base-select;
+  }
+  select.form-control,
+  select.select-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 14px;
+    background-image: none !important;
+  }
+  select.form-control::picker(select),
+  select.select-filter::picker(select) {
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--fg);
+    box-shadow: var(--shadow-lg);
+  }
+  select.form-control option,
+  select.select-filter option {
+    min-height: var(--touch-target);
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  select.form-control option:hover,
+  select.form-control option:focus,
+  select.select-filter option:hover,
+  select.select-filter option:focus {
+    background: var(--surface-subtle);
+  }
+  select.form-control option:checked,
+  select.select-filter option:checked {
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 700;
+  }
+  select.form-control::picker-icon,
+  select.select-filter::picker-icon {
+    color: currentColor;
+  }
 }
 .form-control:not(:disabled):hover {
   border-color: var(--accent);
