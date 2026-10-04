@@ -391,6 +391,12 @@ textarea {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.profile-user-name {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  color: var(--header-muted);
+}
 .profile-chevron {
   flex: none;
   width: 7px;

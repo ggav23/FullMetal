@@ -96,7 +96,11 @@
         ...valores,
         status: item.status,
         solicitanteId: doUsuario ? usuario.id : `teste-outro-${usuario.id}`,
-        solicitante: doUsuario ? null : "Outro solicitante (teste)",
+        solicitante: doUsuario
+          ? typeof usuario.nome === "string" && usuario.nome.trim()
+            ? usuario.nome.trim()
+            : null
+          : "Outro solicitante (teste)",
         unidade: item.unidade,
         prioridade: item.prioridade,
         dataCriacao: item.dataCriacao,
