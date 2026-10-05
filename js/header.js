@@ -38,9 +38,13 @@
 
 (() => {
   // Este seletor existe apenas para testar as telas antes da autenticação real.
+  // No site, libero a demonstração somente no endereço deste projeto.
   const emDesenvolvimento =
     window.location.protocol === "file:" ||
-    ["localhost", "127.0.0.1"].includes(window.location.hostname);
+    ["localhost", "127.0.0.1"].includes(window.location.hostname) ||
+    (window.location.protocol === "https:" &&
+      window.location.hostname === "ggav23.github.io" &&
+      window.location.pathname.startsWith("/FullMetal/"));
   const chavePerfil = "fullmetal-dev-perfil";
   const chaveUsuario = "fullmetal-dev-usuario";
   const solicitantes = Object.freeze({ madeira: "Madeira", ferro: "Ferro" });
@@ -195,7 +199,7 @@
     if (botaoPerfil)
       botaoPerfil.setAttribute(
         "aria-label",
-        `Perfil: ${nomes[perfilAtual]}${perfilAtual === "solicitante" ? `, ${solicitantes[usuarioDev.solicitante]}` : ""}. Alterar perfil local de desenvolvimento`,
+        `Perfil: ${nomes[perfilAtual]}${perfilAtual === "solicitante" ? `, ${solicitantes[usuarioDev.solicitante]}` : ""}. Alterar perfil de demonstração`,
       );
     for (const opcao of opcoesPerfil) {
       const ativa =
@@ -258,7 +262,7 @@
     const etiqueta = document.createElement("label");
     etiqueta.className = "sr-only";
     etiqueta.htmlFor = "perfil-dev";
-    etiqueta.textContent = "Perfil de teste, somente desenvolvimento";
+    etiqueta.textContent = "Perfil de demonstração, sem login real";
 
     seletor = document.createElement("select");
     seletor.id = "perfil-dev";

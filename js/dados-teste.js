@@ -1,9 +1,12 @@
 (() => {
-  const local =
+  const emDesenvolvimento =
     location.protocol === "file:" ||
-    ["localhost", "127.0.0.1"].includes(location.hostname);
+    ["localhost", "127.0.0.1"].includes(location.hostname) ||
+    (location.protocol === "https:" &&
+      location.hostname === "ggav23.github.io" &&
+      location.pathname.startsWith("/FullMetal/"));
   if (
-    !local ||
+    !emDesenvolvimento ||
     FullmetalPerfis.obterUsuarioAtual()?.origem !== "desenvolvimento"
   )
     return;

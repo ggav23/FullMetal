@@ -33,7 +33,10 @@
         let destino = paginas.solicitante;
         const emDesenvolvimento =
           location.protocol === "file:" ||
-          ["localhost", "127.0.0.1"].includes(location.hostname);
+          ["localhost", "127.0.0.1"].includes(location.hostname) ||
+          (location.protocol === "https:" &&
+            location.hostname === "ggav23.github.io" &&
+            location.pathname.startsWith("/FullMetal/"));
         // Reutilizo a escolha local existente, sem criar usuário ou simular autenticação.
         if (emDesenvolvimento) {
           try {
