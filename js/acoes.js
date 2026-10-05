@@ -124,14 +124,20 @@
     destino?.focus({ preventScroll: true });
   });
   function executar(id, acao, parametros) {
+    const antes = FullmetalDados.obter(id);
     FullmetalDados.executar(id, acao, parametros);
-    feedback.textContent = {
-      encaminhar: "Demanda encaminhada.",
-      prioridade: "Prioridade salva.",
-      iniciar: "Atendimento iniciado.",
-      concluir: "Atendimento concluído.",
-      cancelar: "Demanda cancelada.",
-    }[acao];
+    const repetida =
+      (acao === "encaminhar" && antes?.unidade === parametros?.unidade) ||
+      (acao === "prioridade" && antes?.prioridade === parametros?.prioridade);
+    feedback.textContent = repetida
+      ? "Esse valor já está definido. Nenhuma alteração foi feita."
+      : {
+          encaminhar: "Demanda encaminhada.",
+          prioridade: "Prioridade salva.",
+          iniciar: "Atendimento iniciado.",
+          concluir: "Atendimento concluído.",
+          cancelar: "Demanda cancelada.",
+        }[acao];
     atualizar();
   }
   confirmar.addEventListener("click", () => {

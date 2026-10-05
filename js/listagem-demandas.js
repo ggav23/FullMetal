@@ -82,7 +82,10 @@ const PainelDemandas = {
     this.renderizarListagem(
       FullmetalFiltros.ordenar(filtradas, this.ordenacao.value),
     );
-    this.anuncio.textContent = `${filtradas.length} demandas encontradas.`;
+    this.anuncio.textContent =
+      filtradas.length === 1
+        ? "1 demanda encontrada."
+        : `${filtradas.length} demandas encontradas.`;
   },
   renderizarListagem(dados) {
     this.listaContainer.replaceChildren();
@@ -92,8 +95,8 @@ const PainelDemandas = {
         criar(
           "li",
           this.demandas.length
-            ? "Nenhum resultado. Altere a busca ou limpe os filtros."
-            : "Nenhuma demanda disponível para este usuário.",
+            ? "Nenhuma demanda corresponde aos filtros. Altere a busca ou limpe os filtros."
+            : "Você ainda não registrou demandas.",
           "empty-state",
         ),
       );
