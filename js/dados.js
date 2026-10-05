@@ -59,7 +59,10 @@
     const local = globalThis.location;
     const emDesenvolvimento =
       local?.protocol === "file:" ||
-      ["localhost", "127.0.0.1"].includes(local?.hostname);
+      ["localhost", "127.0.0.1"].includes(local?.hostname) ||
+      (local?.protocol === "https:" &&
+        local.hostname === "ggav23.github.io" &&
+        local.pathname.startsWith("/FullMetal/"));
     if (
       !emDesenvolvimento ||
       usuario?.origem !== "desenvolvimento" ||
@@ -69,7 +72,7 @@
       !globalThis.FullmetalExemplos
     )
       throw new Error(
-        "A importação de exemplos está disponível apenas no desenvolvimento local.",
+        "A importação de exemplos está disponível apenas no desenvolvimento local ou na demonstração do Fullmetal.",
       );
 
     // Valido o arquivo inteiro antes de gravar; não misturo uma importação incompleta aos dados.
