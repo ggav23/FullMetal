@@ -65,7 +65,15 @@
       <search>
         <form action="#" method="GET">
           <fieldset>
-            <legend>Buscar e Filtrar Demandas</legend>
+            <legend>
+              Buscar e Filtrar Demandas
+              <span
+                class="list-filter-count"
+                data-anuncio-listagem
+                role="status"
+                aria-live="polite"
+              ></span>
+            </legend>
 
             <!-- busca -->
             <div class="list-filter-field">
@@ -137,12 +145,6 @@
         <p class="error-summary" data-erro-listagem role="alert" hidden></p>
         <p data-carregando-listagem role="status">Carregando demandas…</p>
         <ul id="lista-demandas"></ul>
-        <p
-          class="sr-only"
-          data-anuncio-listagem
-          role="status"
-          aria-live="polite"
-        ></p>
       </section>
     </main>
     <noscript

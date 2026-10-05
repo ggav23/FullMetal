@@ -1,4 +1,9 @@
 /* Compartilho os estados das ações entre detalhes, triagem e atendimento. */
+.copy-feedback {
+  color: var(--muted);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
 .action-feedback {
   margin-block: 1rem;
   color: var(--fg);

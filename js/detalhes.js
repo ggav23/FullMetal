@@ -7,6 +7,7 @@
   function atualizar() {
     detalhe.hidden = true;
     erro.hidden = true;
+    anuncio.textContent = "";
     const usuario = FullmetalPerfis.obterUsuarioAtual();
     document.querySelector("[data-voltar-painel]").href =
       { triagem: "triagem.html", responsavel: "responsavel.html" }[
@@ -16,7 +17,7 @@
       const demanda = id ? FullmetalDados.obter(id) : null;
       if (!demanda)
         throw new Error(
-          "Demanda não encontrada ou indisponível para este usuário.",
+          "Esta demanda não foi encontrada ou está indisponível para você.",
         );
       for (const [elemento, valor] of Object.entries({
         "demanda-id": demanda.id,
@@ -56,11 +57,13 @@
     }
   }
   document.getElementById("copiar-id").addEventListener("click", async () => {
+    // Mostro o retorno perto do botão e mantenho o anúncio para leitores de tela.
+    anuncio.textContent = "";
     try {
       await navigator.clipboard.writeText(
         document.getElementById("demanda-id").textContent,
       );
-      anuncio.textContent = "Identificador copiado.";
+      anuncio.textContent = "ID copiado.";
     } catch {
       anuncio.textContent =
         "Não foi possível copiar automaticamente. Selecione o identificador para copiá-lo.";

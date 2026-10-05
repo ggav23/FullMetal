@@ -118,6 +118,8 @@
           throw new Error(
             "Selecione uma unidade válida para o encaminhamento.",
           );
+        // Se o destino já é esse, não gravo de novo nem acrescento outro evento.
+        if (atual.unidade === unidade.id) return nova;
         nova.unidade = unidade.id;
         descricao = `Demanda encaminhada para ${unidade.nome}.`;
         break;
@@ -125,6 +127,7 @@
       case "prioridade":
         if (!["normal", "media", "alta"].includes(parametros.prioridade))
           throw new Error("Selecione uma prioridade válida.");
+        if (atual.prioridade === parametros.prioridade) return nova;
         nova.prioridade = parametros.prioridade;
         descricao = `Prioridade definida: ${{ normal: "Normal", media: "Média", alta: "Alta" }[parametros.prioridade]}.`;
         break;
