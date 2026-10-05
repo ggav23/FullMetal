@@ -43,6 +43,12 @@ A especificação funcional do projeto, incluindo escopo, perfis de usuário, re
 
 A documentação será atualizada ao longo do desenvolvimento para manter a relação entre requisitos, implementação e testes.
 
+## Documentação do desenvolvimento
+
+- [Registro 01 — Estrutura e Interface](docs/desenvolvimento/01-estrutura-interface.md)
+- [Registro 02 — JavaScript, Regras e Integração](docs/desenvolvimento/02-javascript-regras-integracao.md)
+- [Registro 03 — Testes, Correções e Retrospectiva](docs/desenvolvimento/03-testes-correcoes-retrospectiva.md)
+
 ## Planejamento
 
 O backlog e a divisão das atividades da equipe estão sendo organizados no Notion:
@@ -72,5 +78,3 @@ git switch main
 git pull --ff-only
 git switch -c feat/detalhes-demanda
 ```
-
-A revisão manual de acessibilidade ainda está pendente.
