@@ -3,6 +3,13 @@
     ["string", "number"].includes(typeof valor)
       ? String(valor)
       : "Não informado";
+  function codigoDemanda(id) {
+    const valor = texto(id);
+    // Abrevio só o UUID na tela. Os dados e os links mantêm o ID completo.
+    return /^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/i.test(valor)
+      ? valor.slice(0, 8).toUpperCase()
+      : valor;
+  }
   function elemento(tag, conteudo, classe) {
     const item = document.createElement(tag);
     if (conteudo !== undefined) item.textContent = texto(conteudo);
@@ -60,6 +67,7 @@
   }
   globalThis.FullmetalUI = Object.freeze({
     texto,
+    codigoDemanda,
     elemento,
     status,
     data,

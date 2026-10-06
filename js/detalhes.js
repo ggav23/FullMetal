@@ -20,7 +20,7 @@
           "Esta demanda não foi encontrada ou está indisponível para você.",
         );
       for (const [elemento, valor] of Object.entries({
-        "demanda-id": demanda.id,
+        "demanda-id": FullmetalUI.codigoDemanda(demanda.id),
         "titulo-demanda": demanda.titulo,
         "demanda-categoria": FullmetalCatalogos.nomeCategoria(
           demanda.categoria,
