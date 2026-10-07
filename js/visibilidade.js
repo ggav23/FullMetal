@@ -37,11 +37,13 @@
       !["Pendente", "Em atendimento"].includes(demanda.status)
     )
       return [];
-    if (usuario.perfil === "solicitante") return ["cancelar"];
+    // Depois de iniciar o atendimento, Solicitante e Triagem só acompanham.
+    if (usuario.perfil === "solicitante")
+      return demanda.status === "Pendente" ? ["cancelar"] : [];
     if (usuario.perfil === "triagem")
       return demanda.status === "Pendente"
         ? ["encaminhar", "cancelar"]
-        : ["cancelar"];
+        : [];
     return demanda.status === "Pendente"
       ? ["prioridade", "iniciar"]
       : ["prioridade", "concluir"];

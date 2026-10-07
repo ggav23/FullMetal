@@ -117,7 +117,7 @@
       const chave = campo.dataset.campo;
       campo.textContent =
         chave === "id"
-          ? `Demanda ${texto(demanda.id)}`
+          ? `Demanda ${FullmetalUI.codigoDemanda(demanda.id)}`
           : chave === "dataCriacao"
             ? formatarData(demanda[chave])
             : chave === "prioridade"
@@ -216,7 +216,11 @@
         String(String(demanda.id) === selecionada),
       );
       botao.append(
-        criar("span", `Demanda ${texto(demanda.id)}`, "demand-id"),
+        criar(
+          "span",
+          `Demanda ${FullmetalUI.codigoDemanda(demanda.id)}`,
+          "demand-id",
+        ),
         criar("strong", demanda.titulo, "queue-item-title"),
       );
       const meta = criar("span", undefined, "queue-item-meta");
@@ -265,11 +269,15 @@
         celula.setAttribute("role", "cell");
         celula.dataset.rotulo = rotulo;
         if (chave === "id") {
-          const botao = criar("button", demanda.id, "audit-open");
+          const botao = criar(
+            "button",
+            FullmetalUI.codigoDemanda(demanda.id),
+            "audit-open",
+          );
           botao.type = "button";
           botao.setAttribute(
             "aria-label",
-            `Consultar demanda ${texto(demanda.id)}`,
+            `Consultar demanda ${FullmetalUI.codigoDemanda(demanda.id)}`,
           );
           botao.addEventListener("click", () => selecionarDemanda(demanda.id));
           celula.appendChild(botao);

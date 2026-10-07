@@ -108,7 +108,7 @@ const PainelDemandas = {
       const card = criar("article", undefined, "card-demanda");
       const header = criar("header", undefined, "card-header");
       header.append(
-        criar("span", `#${demanda.id}`, "card-id"),
+        criar("span", `#${FullmetalUI.codigoDemanda(demanda.id)}`, "card-id"),
         FullmetalUI.status(demanda.status),
       );
       const conteudo = criar("div");
