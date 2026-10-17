@@ -1,266 +1,199 @@
-# Relatório de Acessibilidade — Fullmetal
+# Relatório de acessibilidade — Fullmetal
 
 **Disciplina:** Projeto Aplicado — Programação Web  
-**Status:** Em andamento — testes manuais iniciais  
-**Data dos registros:** 17/10/2026  
-**Versão/commit avaliado:** 3917732
-**Escopo desta rodada:** Cadastro de Demanda  
-**Referenciais:** WCAG 2.1 (critérios aplicáveis) e eMAG (recomendações pertinentes)
+**Data:** 17/10/2026  
+**Escopo:** interface de cadastro de demandas e verificações complementares de listagem e demais fluxos  
+**Referências:** WCAG 2.1 (nível AA, quando aplicável) e eMAG 3.1  
+**Requisitos relacionados:** RNF-001, RNF-002, RF-001, RF-002, RF-003 e RF-004
 
-> Resultados relatados durante a execução manual pelo integrante da equipe. Evidências visuais, versão do código e retestes ainda devem ser vinculados. Os resultados não constituem uma auditoria completa.
+## 1. Objetivo e método
 
-## TA-01 — Navegação por teclado
+Este relatório reúne os testes de acessibilidade realizados durante o desenvolvimento do Fullmetal, os problemas identificados e as medidas tomadas para corrigi-los.
 
-**Resultado:** Navegação funcional; cabeçalho considerado satisfatório pelo avaliador; foco em campo inválido com melhoria pendente.  
-**Requisito associado:** RNF-001.  
-**Critérios de referência:** WCAG 2.1 — 2.1.1, 2.4.3, 2.4.7; avaliar também 1.4.11 para contraste não textual, conforme aplicável.
+A avaliação incluiu navegação por teclado, uso do NVDA, inspeção de HTML no navegador, validação de formulários, teste de responsividade em 320 px e auditoria com axe DevTools. Foram incorporados, como material complementar, os registros de auditoria automatizada e as comparações entre versões presentes no pacote `acessibilidade-2026-10-17.zip`.
 
-**Procedimento:** Navegação, preenchimento e envio do formulário sem utilização de mouse.
+Os resultados dos testes manuais foram registrados durante a avaliação do sistema. Os dados do pacote automatizado foram analisados documentalmente, sem nova execução do script ou confirmação dos commits. Quando uma verificação foi apenas informada pela equipe responsável pela implementação, essa condição está indicada no texto.
 
-**Resultados relatados:**
-- O foco pôde ser identificado visualmente.
-- A ordem de navegação foi considerada lógica.
-- O cadastro pôde ser realizado somente com o teclado.
+**Versões:** o commit dos primeiros testes manuais não foi registrado. O pacote de auditoria identifica `3917732` como versão de referência anterior à M-01. O identificador da alteração M-01 ainda precisa ser incluído.
 
-**Ressalvas registradas:**
-1. **Cabeçalho — encerrado nesta rodada:** o avaliador retomou a inspeção e relatou que o foco é visível e que considera possível manter o estilo atual. Não foi observado problema que justifique mudança imediata.
-2. **Campo inválido — melhoria pendente:** o avaliador relatou que o foco é perceptível, mas pouco nítido, pois se confunde com a borda vermelha do estado de erro. A mesma dificuldade foi observada com o modo de contraste ativo. Recomenda-se diferenciar visualmente a indicação de foco da indicação de erro, mantendo ambas reconhecíveis.
+## 2. Resumo dos testes
 
-**Registro de melhoria M-01 — distinção do foco em campo inválido**
-- **Antes:** campo inválido apresenta borda vermelha; ao receber foco, a diferença parece ser sobretudo o aumento da espessura dessa mesma borda, inclusive no modo de contraste ativo.
-- **Impacto potencial:** dificuldade para identificar rapidamente qual campo está focado usando o teclado.
-- **Situação:** melhoria identificada e ainda não implementada. Não foi comprovada violação formal da WCAG; requer inspeção e, se necessário, avaliação de contraste do indicador.
-- **Referências:** WCAG 2.1 — 2.4.7 (Foco Visível) e 1.4.11 (Contraste Não Textual), conforme aplicabilidade.
-- **Evidência antes:** pendente de anexar captura do campo inválido sem foco e com foco, em modo normal e de contraste ativo.
-- **Correção sugerida:** adotar indicador de foco visualmente distinto da borda de erro (por exemplo, contorno externo com afastamento e contraste adequado), sem remover a sinalização vermelha do erro.
-- **Commit, evidência depois e reteste:** pendentes.
-
-**Reavaliação informada pelo avaliador:** “O cabeçalho está visível, acho que dá para manter” e “o do campo inválido não achei tão claro (...) no modo com contraste ativo tem o mesmo problema”.
-
-## TA-02 — Leitor de tela (NVDA)
-
-**Resultado:** Conforme nos cenários testados manualmente com NVDA.  
-**Requisito associado:** RNF-001.  
-**Referências pertinentes:** WCAG 2.1 — 1.3.1 (Informações e Relações), 3.3.1 (Identificação do Erro), 3.3.2 (Rótulos ou Instruções), 4.1.2 (Nome, Função, Valor) e 4.1.3 (Mensagens de Status), conforme aplicabilidade.
-
-**Ferramenta:** NVDA (leitor de tela).  
-**Tela/fluxo:** Cadastro de Demanda.  
-**Procedimento relatado:** Percorrer o formulário utilizando o leitor de tela; verificar os nomes dos campos; provocar erros de validação; corrigir os dados e cadastrar uma demanda, verificando o anúncio da confirmação.
-
-| Verificação | Resultado relatado |
-|---|---|
-| Nomes dos campos anunciados corretamente | Sim |
-| Mensagens de erro anunciadas | Sim |
-| Confirmação de cadastro anunciada | Sim |
-| Navegação pelo formulário com apoio do NVDA | Realizada sem dificuldade relatada |
-
-**Observação do avaliador:** “Leitor falou tudo, até testei fechar o olho para me colocar no lugar da pessoa e consegui navegar normalmente.”
-
-**Conclusão:** Nos três cenários observados, o NVDA anunciou as informações esperadas e não foram relatadas barreiras. O teste não demonstra, sozinho, conformidade integral com WCAG/eMAG nem substitui testes com usuários reais. Fechar os olhos foi uma experiência informal complementar, não uma simulação equivalente à experiência de uma pessoa cega.
-
-**Defeitos identificados:** Nenhum relatado nos cenários executados.  
-**Evidência audiovisual:** Não anexada; recomenda-se uma gravação curta com áudio do NVDA e sem dados pessoais.  
-**Versão/commit e versão do NVDA:** Não informados.  
-**Limitação:** Teste concentrado no fluxo de cadastro; outras telas e estados de erro/carregamento permanecem pendentes.
-
-## TA-03 — Rótulos e instruções do formulário
-
-**Resultado:** Conforme nos itens verificados manualmente (reavaliação do registro inicial).  
-**Requisitos associados:** RNF-001 e RF-004.  
-**Critério de referência:** WCAG 2.1 — 3.3.2 (Rótulos ou Instruções).
-
-**Procedimento:** Inspeção dos rótulos visíveis, identificação dos campos obrigatórios e envio de formulário vazio para observar mensagens de erro.
-
-| Verificação | Resultado relatado |
-|---|---|
-| Rótulos visíveis em todos os campos | Sim |
-| Indicação clara de obrigatoriedade | Sim — o topo do formulário informa “Todos os campos são obrigatórios.” |
-| Mensagens de erro claras ao enviar vazio | Sim |
-
-**Retificação:** Na avaliação inicial, a identificação de obrigatoriedade havia sido registrada como parcial. Em nova observação, o avaliador percebeu a instrução existente no topo do formulário. A classificação foi corrigida; **não foi identificado defeito neste item**, portanto nenhuma correção antes/depois é necessária para ele.
-
-**Observação de melhoria (sem defeito confirmado):** Embora a instrução “Todos os campos são obrigatórios.” esteja presente, o avaliador relatou que ela não se diferencia visualmente tanto quanto poderia do texto próximo. Vale considerar maior destaque visual, sem depender apenas de cor. A clareza já foi considerada suficiente no teste funcional; não há reprovação confirmada.
-
-**Complemento:** O TA-02 verificou os anúncios de rótulos, erros e confirmação com NVDA no fluxo de cadastro. A instrução geral de obrigatoriedade não foi avaliada isoladamente.
-
-## TA-04 — Validação e identificação dos erros
-
-**Resultado:** Conforme nos três cenários verificados manualmente.  
-**Requisitos associados:** RF-004, RNF-001 e validação VAL-001 (título de 5 a 100 caracteres).  
-**Critério de referência:** WCAG 2.1 — 3.3.1 (Identificação do Erro); relacionado também a 3.3.2 (Rótulos ou Instruções).
-
-**Procedimento realizado:** Tentativa de envio com campos vazios; tentativa de envio com título de dois caracteres (`ab`); correção dos campos inválidos e nova tentativa de cadastro.
-
-| Verificação | Resultado relatado |
-|---|---|
-| Campos inválidos identificados por mensagens claras | Sim |
-| Título com dois caracteres rejeitado | Sim |
-| Após correção, mensagens/estados de erro desaparecem e o cadastro é concluído | Sim |
-
-**Observação do avaliador:** “Tudo em conformidade. Mensagens claras, título com 2 caracteres rejeitado, após correção o cadastro funciona e o erro na célula desaparece.”
-
-**Defeitos identificados neste teste:** Nenhum relatado.  
-**Correção/reteste de código:** Não se aplica a estes cenários, pois não houve falha identificada.  
-**Evidência visual:** Ainda não anexada.  
-**Limitação:** O resultado comprova apenas os cenários experimentados. Em teste posterior (TA-02), foi relatado que o NVDA anunciou as mensagens de erro.
-
-## TA-05 — Auditoria automática de contraste visual
-
-**Resultado:** Nenhum erro detectado pela ferramenta nos modos testados; avaliação manual do foco pendente.  
-**Requisito associado:** RNF-001.  
-**Referências:** WCAG 2.1 — 1.4.3 (Contraste Mínimo), 1.4.11 (Contraste Não Textual), conforme aplicabilidade; a inspeção do foco do TA-01 também se relaciona ao critério 2.4.7 (Foco Visível).
-
-**Ferramenta utilizada:** axe DevTools (conforme relato do avaliador).  
-**Tela:** Cadastro de Demanda.  
-**Procedimento relatado:** Execução de auditoria automática no modo normal e em um modo denominado pelo avaliador “modo contraste”.
-
-| Verificação | Resultado relatado |
-|---|---|
-| Erros reportados pelo axe DevTools no modo normal | Nenhum |
-| Erros reportados pelo axe DevTools no modo contraste | Nenhum |
-| Problemas de contraste detectados automaticamente | Nenhum relatado |
-| Inspeção manual do foco no cabeçalho e nos campos inválidos | Cabeçalho satisfatório; campo inválido com melhoria M-01 pendente |
-
-**Observação do avaliador:** “Não encontrou nenhum erro (tanto no modo normal quanto no modo contraste).”
-
-**Interpretação:** Não foram identificadas falhas pela auditoria automática executada. Isso **não comprova ausência de todas as barreiras de contraste**, pois indicadores de foco e determinadas mudanças de estado podem exigir verificação manual. A inspeção manual posterior considerou satisfatório o foco do cabeçalho, mas identificou oportunidade de melhoria no foco do campo inválido (M-01). Não foi confirmada uma violação formal de contraste.
-
-**Evidência da auditoria:** Resultado informado verbalmente; captura/exportação do relatório da ferramenta ainda não anexada.  
-**Versão/commit:** Não informado.  
-**Correção/reteste:** Não houve correção motivada por este teste até o momento.
-
-## TA-06 — Responsividade (320 px)
-
-**Resultado:** Conforme nos cenários verificados manualmente.  
-**Requisito associado:** RNF-002 (funcionamento a partir de 320 px).  
-**Referência:** WCAG 2.1 — 1.4.10 (Reflow), no que for aplicável.
-
-**Procedimento relatado:** Avaliação do formulário de Cadastro de Demanda com viewport de 320 px, percorrendo os componentes e realizando cadastro.
-
-| Verificação | Resultado relatado |
-|---|---|
-| Rolagem horizontal desnecessária | Não |
-| Elementos cortados ou sobrepostos | Não |
-| Preenchimento e cadastro concluídos nessa largura | Sim |
-
-**Observação do avaliador:** “Passou em tudo. Cadastrei normalmente, nada cortado.” O avaliador reiterou uma sugestão de melhoria visual: dar mais destaque à instrução “Todos os campos são obrigatórios.”, já existente no topo do formulário. Esta sugestão está registrada no TA-03, sem classificar automaticamente como falha de acessibilidade.
-
-**Retificação do registro:** Uma mensagem anterior indicava rolagem horizontal, mas o avaliador corrigiu expressamente a informação para **“não”**. Este relatório considera o resultado corrigido.
-
-**Defeitos identificados neste teste:** Nenhum relatado.  
-**Evidência visual:** Captura do viewport de 320 px ainda não anexada.  
-**Limitação:** O resultado se refere à tela e à largura testadas; não comprova conformidade de todas as telas ou dispositivos.
-
-## TA-07 — Comunicação dos estados da interface
-
-**Resultado:** Parcialmente verificado; os dois cenários executados foram conformes.  
-**Requisitos associados:** Escopo dos estados de carregamento, lista vazia, sucesso e erro; RNF-001.  
-**Referências para avaliação posterior:** WCAG 2.1 — 4.1.3 (Mensagens de Status), quando aplicável, e 1.3.1 (Informações e Relações).
-
-**Procedimento relatado:** Realização de cadastro válido e verificação da confirmação de sucesso; execução de busca sem correspondências na listagem e verificação do estado de lista vazia. Os cenários de carregamento e falha não foram observados nem reproduzidos.
-
-| Estado | Resultado relatado | Classificação |
+| Teste | Verificação | Resultado |
 |---|---|---|
-| Sucesso após cadastrar demanda | Mensagem de confirmação visível | Conforme no cenário testado |
-| Lista vazia após busca sem resultados | Mensagem explicativa visível | Conforme no cenário testado |
-| Carregamento | Não foi possível observar | Não testado |
-| Erro/falha na obtenção de dados | Não foi possível simular ou observar | Não testado |
+| TA-01 | Navegação por teclado e foco visível | Funcional; melhoria M-01 identificada e correção informada |
+| TA-02 | Leitor de tela (NVDA) | Conforme nos cenários testados |
+| TA-03 | Rótulos e instruções | Conforme; melhoria visual opcional |
+| TA-04 | Validação de formulário | Conforme nos cenários testados |
+| TA-05 | Auditoria automática de contraste | Nenhum problema apontado no cadastro |
+| TA-06 | Responsividade em 320 px | Conforme nos cenários testados |
+| TA-07 | Sucesso, lista vazia, carregamento e erro | Sucesso e lista vazia conformes; demais estados não testados |
+| TA-08 | Estrutura semântica e rótulos associados | Conforme nos itens inspecionados |
 
-**Observação do avaliador:** “Não consegui observar o 3 e o 4. 1 e 2 conforme.”
+### TA-01 — Navegação por teclado
 
-**Conclusão:** O teste TA-07 **não está inteiramente concluído**. Não foram encontrados problemas nos estados de sucesso e lista vazia, mas ainda não há evidência que permita aprovar ou reprovar os estados de carregamento e erro. A presença visual de mensagens não comprova que sejam anunciadas corretamente por tecnologias assistivas. O TA-02 confirmou por relato o anúncio de sucesso no fluxo de cadastro, mas não verificou lista vazia, carregamento e erro com o NVDA.
+O formulário foi preenchido e enviado sem uso do mouse. O foco permaneceu visível e a ordem de navegação foi considerada adequada. No cabeçalho, o indicador de foco foi avaliado como suficientemente perceptível.
 
-**Evidências:** Capturas dos estados de sucesso e lista vazia ainda não anexadas.  
-**Defeitos identificados:** Nenhum defeito confirmado nos cenários executados.  
-**Pendência:** Reproduzir os estados de carregamento e erro em momento oportuno (por exemplo, por cenários simulados controlados pela equipe, sem backend real) e verificar anúncio das mensagens em leitor de tela.
+Foi identificada, porém, uma dificuldade na distinção entre a borda de erro e o contorno de foco dos campos inválidos, tanto no tema normal quanto no modo de contraste. Essa observação originou a melhoria **M-01**, detalhada na seção 3.
 
-## TA-08 — Estrutura semântica (verificação inicial)
+**Referências:** WCAG 2.1, critérios 2.1.1, 2.4.3, 2.4.7 e 1.4.11 (conforme aplicabilidade).
 
-**Resultado:** Conforme nos itens inspecionados (região principal, título e rótulos); verificação semântica ainda incompleta.  
-**Tela:** Cadastro de Demanda.  
-**Requisito associado:** RNF-001; requisito do enunciado sobre uso de HTML semântico.  
-**Referência:** WCAG 2.1 — 1.3.1 (Informações e Relações), conforme aplicabilidade.
+### TA-02 — Leitor de tela
 
-**Procedimento relatado:** Inspeção pelo Console do navegador da presença de uma região principal (`main`) e do título principal (`h1`), seguida de verificação inicial das associações de rótulos de campos:
+O teste foi executado com NVDA na tela de cadastro. O leitor anunciou os nomes dos campos, as mensagens de validação e a confirmação do envio. Também foi possível completar o cadastro sem recorrer à informação visual.
 
-```javascript
-document.querySelectorAll('main').length
-[...document.querySelectorAll('h1')].map(el => el.textContent.trim())
-```
+**Resultado:** não foram encontradas barreiras nos cenários testados. A avaliação não se estendeu a todos os perfis e telas, e não substitui testes com usuários de tecnologias assistivas.
 
-| Verificação | Resultado relatado | Avaliação |
+**Referências:** WCAG 2.1, critérios 1.3.1, 3.3.1, 3.3.2, 4.1.2 e 4.1.3.
+
+### TA-03 — Rótulos e instruções
+
+Todos os campos apresentam rótulos. A instrução **“Todos os campos são obrigatórios.”** aparece antes do formulário, e as mensagens de erro explicam as correções necessárias.
+
+**Resultado:** conforme nos itens verificados. Como melhoria de apresentação, recomenda-se destacar um pouco mais a instrução de obrigatoriedade, que atualmente se confunde com os textos próximos. Não foi constatada falha de acessibilidade nesse item.
+
+**Referência:** WCAG 2.1, critério 3.3.2.
+
+### TA-04 — Validação de erros
+
+Foram realizados três testes: envio com campos vazios, envio com título de dois caracteres (`ab`) e correção das informações para concluir o cadastro. Os erros foram apresentados claramente, o título inválido foi rejeitado e as mensagens desapareceram após as correções.
+
+**Resultado:** conforme nos cenários testados. O NVDA também anunciou os erros durante o TA-02.
+
+**Referência:** WCAG 2.1, critério 3.3.1.
+
+### TA-05 — Contraste e auditoria automática
+
+O axe DevTools foi executado na tela de cadastro nos temas normal e de contraste. Não foram apontados problemas nessas execuções. A inspeção visual posterior identificou a oportunidade de melhoria M-01, não detectada como falha pelo teste automático.
+
+**Resultado:** sem falhas automáticas relatadas na tela avaliada. O resultado não cobre, por si só, todos os estados dos controles e telas do sistema.
+
+**Referências:** WCAG 2.1, critérios 1.4.3, 1.4.11 e 2.4.7.
+
+### TA-06 — Responsividade
+
+O formulário foi testado com largura de 320 px. Não houve rolagem horizontal desnecessária, cortes ou sobreposições. O cadastro foi concluído normalmente.
+
+**Resultado:** conforme na tela e largura testadas. O resultado definitivo foi registrado após correção de uma resposta inicial preenchida incorretamente.
+
+**Referência:** WCAG 2.1, critério 1.4.10.
+
+### TA-07 — Estados da interface
+
+| Estado | Resultado |
+|---|---|
+| Sucesso no cadastro | Mensagem visível; anúncio confirmado com NVDA no TA-02 |
+| Busca sem resultados | Mensagem de lista vazia visível |
+| Carregamento | Não observado neste teste |
+| Falha no carregamento de dados | Não reproduzida neste teste |
+
+**Resultado:** parcialmente verificado. Os cenários de carregamento e falha ainda devem ser simulados e avaliados, inclusive com leitor de tela, antes do encerramento dos testes.
+
+**Referência:** WCAG 2.1, critério 4.1.3, quando aplicável.
+
+### TA-08 — HTML semântico
+
+A inspeção pelo Console encontrou um elemento `main`, um título `h1` com o texto **“Nova demanda”** e rótulos associados aos campos `input`, `select` e `textarea` consultados.
+
+**Resultado:** conforme nos itens inspecionados. A verificação não abrangeu toda a hierarquia de títulos ou a estrutura completa de outras páginas.
+
+**Referência:** WCAG 2.1, critério 1.3.1.
+
+## 3. M-01 — Distinção do foco em campos inválidos
+
+**Origem:** teste manual TA-01.  
+**Componente:** campos do formulário “Nova demanda”.  
+**Referências:** WCAG 2.1, critérios 2.4.7 (Foco Visível) e 1.4.11 (Contraste Não Textual).  
+**Situação:** alteração de código informada pela implementação; reteste manual e evidências posteriores ainda não conferidos nesta documentação.
+
+### 3.1. Situação anterior
+
+Quando um campo apresentava erro, sua borda ficava vermelha ou rosada. Ao receber foco, surgia um segundo contorno da mesma tonalidade, dando principalmente a impressão de uma borda mais grossa. O comportamento era semelhante no modo de contraste, dificultando a diferenciação entre os estados **inválido** e **inválido com foco**.
+
+As quatro capturas feitas durante o teste manual estão identificadas abaixo e foram incluídas no pacote de evidências anterior, em `docs/evidencias/acessibilidade/`.
+
+| Tema | Sem foco | Com foco |
 |---|---|---|
-| Número de elementos `main` | `1` | Conforme neste item |
-| Título do elemento `h1` | `Nova demanda` | Conforme neste item |
-| Rótulos de `input`, `select` e `textarea` | Todos os campos exibiram rótulos no comando de inspeção | Conforme na inspeção inicial |
+| Normal | `Foto2SemFoco_celula_erro.png` | `Foto2Foco_celula_erro.png` |
+| Contraste | `Foto3SemFoco_celula_erro_Contraste.png` | `Foto3Foco_celula_erro_Contraste.png` |
 
-**Observação do avaliador:** Nenhuma.  
-**Defeitos identificados nos itens inspecionados:** Nenhum relatado.  
-**Evidência:** Saídas do Console informadas pelo avaliador; captura/exportação ainda não anexada.  
-**Continuação — associação dos rótulos:** O avaliador executou o comando de inspeção que lista os controles `input`, `select` e `textarea` e seus rótulos via `labels`, `aria-label` ou indicação da presença de `aria-labelledby`. Relatou: “Todos os campos possuem rótulos”, sem observações adicionais. Nenhum controle sem rótulo foi apontado.
+### 3.2. Alteração implementada (informações fornecidas pela equipe de desenvolvimento)
 
-**Limitação:** Os resultados são favoráveis, mas a presença de `main`, `h1` e nomes retornados pelo script não comprova, isoladamente, conformidade integral com a WCAG. O script não resolve nem valida o conteúdo referenciado por `aria-labelledby`; a hierarquia dos demais títulos ainda precisa ser avaliada. O anúncio real dos campos foi verificado no TA-02, por relato de teste com NVDA.
+Foi informada uma alteração localizada em `css/global.css`, próxima à linha 693. A regra anterior utilizava a cor do estado de erro também para o foco. A nova configuração separa as duas indicações:
 
-**Próxima atividade:** Registrar a evidência anterior da melhoria M-01, ajustar o estilo do foco em campos inválidos e repetir o teste nos modos normal e de contraste ativo; depois retornar aos estados de carregamento e erro do TA-07.
+| Estado | Apresentação prevista |
+|---|---|
+| Campo normal | Borda padrão |
+| Campo normal com foco | Contorno externo azul; amarelo no modo de contraste |
+| Campo inválido | Borda vermelha ou rosada e mensagem de erro |
+| Campo inválido com foco | Borda de erro preservada e contorno externo independente |
 
-## Pendências para o relatório final
+Segundo o registro da implementação, o contorno é ativado por `:focus-visible`, possui **3 px de espessura** e **3 px de afastamento** da borda. Em modo de cores forçadas do sistema, o traçado passa a ser tracejado. Também foi realizado um ajuste de rolagem para evitar que o cabeçalho encubra o campo em foco. A mudança teria ficado restrita ao CSS, sem alterações nas validações ou no JavaScript.
 
-- Vincular os commits ou identificadores das versões avaliadas.
-- Anexar capturas do foco em campo inválido (M-01), antes/depois da melhoria, nos modos normal e contraste ativo; o foco do cabeçalho foi considerado visível pelo avaliador.
-- Salvar captura ou exportação da auditoria axe DevTools (TA-05) e, se possível, gravação curta do NVDA (TA-02).
-- Registrar correções efetivamente implementadas e seus retestes com evidências de depois.
-- Concluir os estados ainda não testados no TA-07 (carregamento e erro), aprofundar a estrutura semântica (TA-08) e ampliar os testes com leitor de tela (TA-02) para outras telas e estados.
+Essas características são coerentes com o problema identificado e constituem uma solução apropriada em princípio. A verificação do CSS no commit final ainda é necessária para confirmar sua aplicação a todos os campos e temas.
 
----
+### 3.3. Verificações informadas após a alteração
 
-## Anexo A — Complementação por auditoria automatizada e histórico de versões
+A implementação registrou testes nos quatro campos do formulário, nos temas normal e contraste, em desktop e em larguras de 390 px e 320 px. Não foram relatados deslocamentos de layout, cortes do contorno ou rolagem horizontal nos cenários avaliados. Também foi informado que **60 testes funcionais existentes passaram**.
 
-**Origem:** pacote `acessibilidade-2026-10-17.zip`, produzido por ferramenta de IA e fornecido à equipe para revisão. A análise a seguir utiliza `RELATORIO-ACESSIBILIDADE.md`, `resultados.json`, `auditoria.cjs` e as capturas contidas nesse pacote. **Não é uma nova auditoria independente:** os registros e as capturas foram examinados, mas não houve reexecução do script nem validação independente dos commits contra o repositório.
+Os contrastes informados para os indicadores foram de **6,62:1 e 11,18:1**. Ambos superam 3:1, valor de referência do critério 1.4.11 para indicadores visuais relevantes, desde que a medição tenha sido realizada entre as cores adjacentes apropriadas. Como os pares de cores, o CSS final e o procedimento de cálculo não foram fornecidos, os valores permanecem registrados como **medições informadas, não conferidas**. Isso não equivale a uma declaração de conformidade geral com a WCAG.
 
-**Versão declarada da aplicação atual:** `3917732` (`main`, após PR #18). **Coleta declarada:** 17/10/2026, Edge 155, Windows, axe-core 4.14.0, Playwright, larguras de 1366, 390 e 320 pixels CSS, zoom de 100%, nos modos normal e contraste. A coleta automatizada bloqueou Google Fonts e utilizou fontes alternativas. As capturas de *antes/depois* foram **geradas posteriormente a partir de commits históricos**; não foram tiradas nas datas originais das alterações.
+Foi indicada ainda a existência de **26 capturas de antes/depois** em um relatório específico da M-01, mantido fora do repositório (`verificacoes-fullmetal/acessibilidade-2026-10-17/M-01/M-01.md`). Esse material ainda não foi recebido nem examinado para a presente revisão.
 
-### A.1. Síntese da auditoria fornecida
+### 3.4. Reteste a registrar pela equipe
 
-| Indicador | Resultado documentado | Interpretação |
+1. Em “Nova demanda”, usar `Tab` até o campo Título e observar o anel de foco.
+2. Deixar o campo inválido e retirar o foco; conferir a borda e a mensagem de erro.
+3. Retornar ao campo com `Shift+Tab`; verificar se o anel fica nitidamente separado da borda de erro.
+4. Repetir no modo de contraste e, se possível, em 320 px, conferindo se o contorno não é cortado.
+
+Depois do reteste, anexar imagens do estado **com foco após a correção**, registrar o resultado visual observado e incluir o identificador do commit ou PR. Até essa confirmação, a M-01 fica **implementada segundo o registro técnico, com validação final pendente**.
+
+## 4. Auditoria complementar e histórico de versões
+
+O pacote `acessibilidade-2026-10-17.zip` contém `RELATORIO-ACESSIBILIDADE.md`, `resultados.json`, `auditoria.cjs` e capturas de tela de diferentes versões do Fullmetal. A coleta registra uso de Edge 155, Playwright e axe-core 4.14.0, com larguras de 1366, 390 e 320 px e os dois temas. As imagens históricas de comparação foram produzidas a partir de versões do repositório, não necessariamente nas datas originais das alterações.
+
+### 4.1. Resultados registrados na coleta
+
+| Indicador | Resultado |
+|---|---|
+| Execuções do axe-core | 56, sendo 52 na versão de referência |
+| Alertas `label-content-name-mismatch` | 24 execuções envolvendo o mesmo botão `#perfil-toggle` |
+| Verificações de rolagem horizontal | Sem rolagem horizontal nos 52 cenários atuais documentados |
+| Erros de JavaScript nos cenários atuais | Nenhum registrado |
+
+As 24 ocorrências do alerta de nome acessível não representam 24 defeitos diferentes. O botão `#perfil-toggle` deve ser revisado manualmente. Os resultados inconclusivos da auditoria também não podem ser classificados como aprovação.
+
+O resultado do TA-05, sem erros no formulário de cadastro, não contradiz esses alertas, porque a auditoria complementar abrangeu outras telas e estados.
+
+### 4.2. Comparações históricas antes/depois
+
+| ID | Melhoria registrada | Evidências |
 |---|---|---|
-| Execuções do axe-core | 56 ao todo; 52 na versão atual | Diversos estados e larguras; não são 56 testes independentes de critérios diferentes |
-| Violações automatizadas na versão atual | 24 execuções sinalizaram `label-content-name-mismatch` no mesmo botão `#perfil-toggle` | **Um problema potencial recorrente**, não 24 defeitos distintos; exige revisão manual |
-| Resultados inconclusivos | Presentes nas 56 execuções | Não se devem contar como aprovação nem falha confirmada |
-| Rolagem horizontal nas 52 verificações atuais | Não observada | Complementa TA-06; não substitui zoom 400% ou celular real |
-| Erros de JavaScript nos cenários atuais | Nenhum documentado | Não é teste integral de acessibilidade |
+| EA-01 | Mensagem de erro de encaminhamento passou a aparecer no cartão, com `role="alert"` e foco direcionado | `erro-antes.png` / `erro-depois.png` |
+| EA-02 | Ajuste da listagem para textos de localização muito extensos | `layout-antes.png` / `layout-depois.png` |
+| EA-03 | Feedback visual após copiar o identificador da demanda | `copiar-feedback-antes.png` / `copiar-atual.png` |
+| EA-04 | Quantidade de resultados da busca exibida próxima ao filtro em telas menores | `busca-feedback-antes.png` / `busca-atual.png` |
+| EA-05 | Refinamento das cores do tema de contraste, sem falha formal de contraste comprovada na versão anterior | `contraste-antes-1366.png` / `contraste-depois-1366.png` |
 
-**Comparação com nosso TA-05:** no teste manual relatado pela equipe, o axe DevTools não apontou erros **na tela de cadastro** nos modos testados. O conjunto do ZIP percorre também outras telas, perfis e estados, onde o alerta de nome acessível foi encontrado. Portanto, os dois registros não devem ser apresentados como medições equivalentes nem como resultados contraditórios.
+As imagens constam do pacote de evidências anterior, em `docs/evidencias/acessibilidade/`. Os commits indicados pela coleta são: EA-01 `b95c84b` → `48673bc`; EA-02 `3039397` → `accbeb4`; EA-03 e EA-04 `a49d137` → `3917732`; EA-05 `0eaa93e` → `0b438f7`. Esses identificadores devem ser conferidos no repositório antes da apresentação.
 
-### A.2. Evidências de antes e depois aproveitáveis
+## 5. Pendências e conclusão
 
-As imagens abaixo devem ser mantidas em `docs/evidencias/acessibilidade/` (ou pasta equivalente, com os caminhos atualizados no relatório). A situação descrita é aquela documentada pela coleta automatizada, e não uma observação manual do integrante que executou os testes TA-01 a TA-08.
+A avaliação inicial confirmou o funcionamento do cadastro por teclado, com NVDA e em 320 px, além da presença de rótulos, instruções e mensagens de erro. A revisão manual identificou uma dificuldade de distinção do foco em campos inválidos, tratada na melhoria M-01. Sua implementação foi descrita pela equipe de desenvolvimento, mas ainda precisa do reteste manual registrado e da inclusão das evidências posteriores neste relatório.
 
-| ID | Melhoria demonstrada | Arquivos de evidência | Observação importante |
-|---|---|---|---|
-| EA-01 | Erro ao encaminhar demanda sem unidade: mensagem passou a ficar dentro do cartão, com `role="alert"` e foco no erro | `erro-antes.png`, `erro-depois.png` | Melhor comparação de uma barreira concreta; anúncio por leitor de tela não foi revalidado nessa rodada |
-| EA-02 | Localização antiga com 10.000 caracteres: tabela deixou de comprimir as colunas; o texto completo foi preservado no DOM | `layout-antes.png`, `layout-depois.png` | Dado de teste excepcional; melhoria de robustez e legibilidade, não reprovação WCAG comprovada |
-| EA-03 | Confirmação da ação de copiar ID tornou-se visualmente perceptível sem retirar o anúncio acessível já existente | `copiar-feedback-antes.png`, `copiar-atual.png` | Houve melhoria visual; não afirmar que antes não havia anúncio para leitor de tela |
-| EA-04 | Quantidade de resultados da busca passou a aparecer próxima ao filtro no mobile | `busca-feedback-antes.png`, `busca-atual.png` | Melhoria de feedback para usuários visuais, mantendo a região acessível |
-| EA-05 | Paleta do modo contraste foi refinada de fundo preto para azul escuro, mantendo contraste textual medido nos pares amostrados | `contraste-antes-1366.png`, `contraste-depois-1366.png` | **Não afirmar que o contraste anterior reprovava**: pares medidos passaram antes e depois |
+Permanecem pendentes:
 
-**Commits declarados pela coleta:** EA-01: `b95c84b` → `48673bc`; EA-02: `3039397` → `accbeb4`; EA-03 e EA-04: `a49d137` → `3917732` (com alterações integradas); EA-05: `0eaa93e` → `0b438f7`. A equipe deve confirmar esses identificadores no histórico do próprio repositório antes da entrega.
+- Conferir o commit da M-01 e anexar as capturas do estado corrigido.
+- Verificar os cenários de carregamento e erro do TA-07, inclusive os anúncios por leitor de tela.
+- Revisar o alerta `label-content-name-mismatch` no seletor de perfil.
+- Identificar as versões usadas nos testes manuais e, quando possível, guardar a exportação do axe DevTools e uma gravação do teste com NVDA.
+- Ampliar a cobertura para outros fluxos, níveis de zoom e dispositivos reais, conforme o tempo disponível.
 
-### A.3. Questões ainda abertas
+Os resultados sustentam as avaliações e melhorias descritas, mas não constituem certificação de conformidade integral com a WCAG ou o eMAG.
 
-1. **M-01 — foco no campo inválido:** continua pendente. A imagem `atual-foco-cadastro.png` do ZIP mostra um estado com erros, mas **não comprova a comparação com e sem foco, nem a correção que ainda será implementada**. As capturas manuais que o integrante informou possuir precisam ser adicionadas ao repositório; após eventual ajuste, repetir o teste nos modos normal e contraste e capturar o *depois*.
-2. **Nome acessível no seletor de perfil:** o axe-core retornou `label-content-name-mismatch` (impacto `serious`) para `#perfil-toggle` em 24 cenários atuais. O relatório da IA considera a interpretação discutível por diferenças de espaçamento/pontuação. **Não declarar o alerta como resolvido sem conferência humana** e, se possível, teste com comando de voz.
-3. **TA-07 — carregamento e erro:** não foram reproduzidos nos testes manuais anteriores. As capturas de erro no encaminhamento e de lista vazia do ZIP são úteis, mas não demonstram, por si só, os estados de carregamento e erro na obtenção de dados. Mantê-los pendentes até o cenário correto ser testado.
-4. **Escopo:** o teste com NVDA que o integrante realizou é válido para o fluxo de cadastro; a auditoria automatizada não testou novamente os anúncios de leitor de tela na versão atual de todas as telas. Faltam zoom real de 200%/400%, celular físico e revisão do foco nos controles não cobertos.
-5. **Outras observações automatizadas:** o botão de contraste ficou estreito sob espaçamento de texto aumentado a 320px; `index.html` usa redirecionamento JavaScript automático, que requer exame em relação ao eMAG. Registros úteis para backlog, sem classificar automaticamente como violações comprovadas da WCAG 2.1 AA.
+## Referências
 
-### A.4. Situação após a integração
-
-O conjunto atual permite apresentar **testes manuais registrados pela equipe** (TA-01 a TA-08), **resultados automatizados complementares** e **cinco comparações históricas antes/depois** documentadas com capturas. A equipe ainda deve anexar as capturas que produziu, confirmar o commit efetivamente testado e realizar o reteste M-01. O material **não comprova conformidade integral** com WCAG 2.1 AA/eMAG, e esse limite deve constar da apresentação.
-
-### A.5. Arquivos de origem e rastreabilidade
-
-- `anexos/RELATORIO-ACESSIBILIDADE-IA.md`: relatório técnico fornecido no ZIP, preservado como fonte de consulta.
-- `anexos/resultados.json`: dados de auditoria, referências aos commits e condições de coleta.
-- `anexos/auditoria.cjs`: script de auditoria fornecido; antes de executar, inspecionar as dependências, caminhos locais e instruções específicas do ambiente.
-- `evidencias/acessibilidade/`: capturas organizadas segundo o nome original. **As capturas referentes aos testes manuais do integrante não estão incluídas**, porque foram informadas, mas ainda não foram enviadas neste diálogo.
-
+- W3C. *Web Content Accessibility Guidelines (WCAG) 2.1*. https://www.w3.org/TR/WCAG21/
+- W3C. *Understanding SC 2.4.7 — Focus Visible*. https://www.w3.org/WAI/WCAG21/Understanding/focus-visible.html
+- W3C. *Understanding SC 1.4.11 — Non-text Contrast*. https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html
+- Governo Federal. *Modelo de Acessibilidade em Governo Eletrônico (eMAG) 3.1*. https://emag.governoeletronico.gov.br/
