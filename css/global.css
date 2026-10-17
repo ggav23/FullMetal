@@ -690,6 +690,29 @@ select.select-filter[aria-invalid="true"] {
   outline-color: var(--danger);
 }
 
+/* Deixo espaço para o foco não ficar atrás do header, inclusive com duas linhas. */
+html:has(#formulario-demanda) {
+  scroll-padding-block: 160px 16px;
+}
+
+/* No cadastro, separo o foco da borda vermelha que indica erro. */
+#formulario-demanda .form-control:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.high-contrast #formulario-demanda .form-control:focus-visible {
+  outline-color: var(--focus-on-dark);
+}
+
+@media (forced-colors: active) {
+  #formulario-demanda .form-control:focus-visible,
+  .high-contrast #formulario-demanda .form-control:focus-visible {
+    outline-color: Highlight;
+    outline-style: dashed;
+  }
+}
+
 textarea.form-control {
   min-height: 120px;
   resize: vertical;
